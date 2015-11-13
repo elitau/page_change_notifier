@@ -21,6 +21,6 @@ defmodule PageChangeNotifier.SearchTest do
 
   test "extract results" do
     results = Search.run(@ebay_url)
-    assert Enum.at(results, 0) == @first_element
+    assert Enum.at(results, 0).url == @first_element
   end
 end

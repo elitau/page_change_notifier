@@ -14,6 +14,7 @@ defmodule PageChangeNotifier.SearchControllerTest do
       conn = get conn(), "/search", q: ebay_url
       assert html_response(conn, 200) =~ "Search Results"
       assert html_response(conn, 200) =~ "fahrradrahmen"
+      assert html_response(conn, 200) =~ "Pulverbeschichtung"
       assert html_response(conn, 200) =~ "campagnolo"
     end
   end

@@ -8,11 +8,17 @@ defmodule PageChangeNotifier.Search do
   end
 
   def extract_results(page_html) do
-    page_html |> Floki.find("article h2 a") |> Floki.attribute("href") |> to_ebay_url
+    page_html |> Floki.find("article h2 a") |> to_results
   end
 
-  def to_ebay_url(paths) do
-    paths |> Enum.map(fn(path) -> prepend_ebay_domain(path) end)
+  def to_results(html_elements) do
+    html_elements |> Enum.map(fn(html_element) -> to_result(html_element) end)
+  end
+
+  def to_result({_, attributes, titles}) do
+    path = elem(Enum.at(attributes, 0), 1)
+    title = Enum.at(titles, 0)
+    %{:url => prepend_ebay_domain(path), :title => title}
   end
 
   def prepend_ebay_domain(path) do
