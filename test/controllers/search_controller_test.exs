@@ -13,7 +13,8 @@ defmodule PageChangeNotifier.SearchControllerTest do
     use_cassette "ebay_fahrrad" do
       conn = get conn(), "/search", q: ebay_url
       assert html_response(conn, 200) =~ "Search Results"
-      assert html_response(conn, 200) =~ "ebay"
+      assert html_response(conn, 200) =~ "fahrradrahmen"
+      assert html_response(conn, 200) =~ "campagnolo"
     end
   end
 end
