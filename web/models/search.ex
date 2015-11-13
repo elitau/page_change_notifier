@@ -9,6 +9,6 @@ defmodule PageChangeNotifier.Search do
   end
 
   def extract_results(page_html) do
-    [page_html]
+    page_html |> Floki.find("article h2 a") |> Floki.attribute("href")
   end
 end

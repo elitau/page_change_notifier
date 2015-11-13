@@ -5,6 +5,7 @@ defmodule PageChangeNotifier.SearchTest do
 
   alias PageChangeNotifier.Search
   @ebay_url "http://www.ebay-kleinanzeigen.de/s-50937/fahrrad/k0l18675r5"
+  @first_element "/s-anzeige/fahrradrahmen-pulverbeschichten-fahrrad-rahmen-pulverbeschichtung/360494180-298-20668"
 
   setup_all do
     ExVCR.Config.cassette_library_dir("test/fixtures/vcr_cassettes")
@@ -20,6 +21,6 @@ defmodule PageChangeNotifier.SearchTest do
 
   test "extract results" do
     results = Search.run(@ebay_url)
-    assert Enum.at(results, 0) =~ "html"
+    assert Enum.at(results, 0) == @first_element
   end
 end
