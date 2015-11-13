@@ -4,6 +4,7 @@ defmodule PageChangeNotifier.SearchTest do
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
 
   alias PageChangeNotifier.Search
+  @ebay_url "http://www.ebay-kleinanzeigen.de/s-50937/fahrrad/k0l18675r5"
 
   setup_all do
     ExVCR.Config.cassette_library_dir("test/fixtures/vcr_cassettes")
@@ -11,19 +12,14 @@ defmodule PageChangeNotifier.SearchTest do
   end
 
   test "fetch html" do
-    ebay_url = "http://www.ebay-kleinanzeigen.de/s-50937/fahrrad/k0l18675r5"
     use_cassette "ebay_fahrrad" do
-      html = Search.get_page_html(ebay_url)
+      html = Search.get_page_html(@ebay_url)
       assert html =~ "Fahrrad"
     end
   end
 
   test "extract results" do
-    results = Search.extract_results(example_html)
-    assert Enum.at(results, 0) == "html"
-  end
-
-  def example_html do
-    "html"
+    results = Search.run(@ebay_url)
+    assert Enum.at(results, 0) =~ "html"
   end
 end
