@@ -6,6 +6,6 @@ defmodule PageChangeNotifier.SearchController do
   end
 
   def results(query) do
-    ["result", "number two"]
+    PageChangeNotifier.Search.run(query)
   end
 end
