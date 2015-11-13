@@ -5,11 +5,10 @@ defmodule PageChangeNotifier.Search do
   end
 
   def get_page_html(page_url) do
-    "get_page_html"
+    PageChangeNotifier.Webpage.get_body(page_url)
   end
 
   def extract_results(page_html) do
     [page_html]
   end
-
 end
