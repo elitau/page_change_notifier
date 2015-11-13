@@ -1,0 +1,10 @@
+<div class="jumbotron">
+  <h2>Search Results for <%= @query %></h2>
+  <form action="/search">
+    <label>
+      Webseite:
+      <input type="text" name="q" placeholder="Search"></input>
+    </label>
+    <button type="submit" value="Submit">Submit</button>
+  </form>
+</div>

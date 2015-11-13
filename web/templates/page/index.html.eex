@@ -1,6 +1,13 @@
 <div class="jumbotron">
   <h2>Welcome to Phoenix!</h2>
   <p class="lead">A productive web framework that<br />does not compromise speed and maintainability.</p>
+  <form action="/search">
+    <label>
+      Webseite:
+      <input type="text" name="q" placeholder="Search"></input>
+    </label>
+    <button type="submit" value="Submit">Submit</button>
+  </form>
 </div>
 
 <div class="row marketing">
