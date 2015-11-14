@@ -2,8 +2,10 @@ defmodule PageChangeNotifier.Mailer do
   use Mailgun.Client,
       # domain: Application.get_env(:page_change_notifier, :mailgun_domain),
       # key: Application.get_env(:page_change_notifier, :mailgun_key)
-      domain: "https://api.mailgun.net/v3/#{System.get_env("MAILGUN_DOMAIN")}",
-      key: System.get_env("MAILGUN_API_KEY")
+      domain: "https://api.mailgun.net/v3/appf4ce7ee709cd4c2cbef2fb1db76d877c.mailgun.org",
+      key: "key-74dcc9e37812eaa1cb65874547c654e9"
+      # domain: "https://api.mailgun.net/v3/#{System.get_env("MAILGUN_DOMAIN")}",
+      # key: System.get_env("MAILGUN_API_KEY")
       # mode: Mix.env,
       # test_file_path: "/tmp/mailgun.json"
 
@@ -13,7 +15,7 @@ defmodule PageChangeNotifier.Mailer do
                subject: "Es gibt wieder was Neues",
                html: to_html(results)
   end
-  # PageChangeNotifier.Mailer.send_new_results_text_email("duarde.taulie@gmail.com", [%{title: "title", url: u}])
+  # PageChangeNotifier.Mailer.send_new_results_text_email("duarde.taulie@gmail.com", [%{title: "title", url: "asd"}])
   def to_html(results) do
     html_start <> html_results(results) <> html_end
     # Phoenix.View.render_to_string(PageChangeNotifier.EmailView, "new_results.html", %{results: results})
@@ -41,3 +43,26 @@ defmodule PageChangeNotifier.Mailer do
       )
   end
 end
+# email = %{to: "duarde.taulie@gmail.com",
+#                from: "search@ede.li",
+#                subject: "Es gibt wieder was Neues",
+#                html: "to_html(results)"}
+# attrs = Dict.merge(email, %{
+#       to: Dict.fetch!(email, :to),
+#       from: Dict.fetch!(email, :from),
+#       text: Dict.get(email, :text, ""),
+#       html: Dict.get(email, :html, ""),
+#       subject: Dict.get(email, :subject, ""),
+#     })
+
+# body    = URI.encode_query(Dict.drop(attrs, [:attachments]))
+# ctype   = 'application/x-www-form-urlencoded'
+# url = "https://api.mailgun.net/v3/appf4ce7ee709cd4c2cbef2fb1db76d877c.mailgun.org/messages"
+# url  = String.to_char_list(url)
+# key = "key-74dcc9e37812eaa1cb65874547c654e9"
+# headers = [{'Authorization', 'Basic ' ++ String.to_char_list(Base.encode64("api:#{key}"))}]
+# # body = "body"
+# opts = []
+# method = :post
+# :httpc.request(method, {url, headers, ctype, body}, opts, body_format: :binary)
+# :httpc.request(:post, {url, headers}, opts, body_format: :binary)
