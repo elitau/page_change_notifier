@@ -1,0 +1,18 @@
+<h2>Show search agent</h2>
+
+<ul>
+
+  <li>
+    <strong>Url:</strong>
+    <%= @search_agent.url %>
+  </li>
+
+  <li>
+    <strong>User:</strong>
+    <%= @search_agent.user_id %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: search_agent_path(@conn, :edit, @search_agent) %>
+<%= link "Back", to: search_agent_path(@conn, :index) %>
