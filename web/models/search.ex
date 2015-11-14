@@ -15,8 +15,8 @@ defmodule PageChangeNotifier.Search do
     html_elements |> Enum.map(fn(html_element) -> to_result(html_element) end)
   end
 
-  def to_result({_, attributes, titles}) do
-    path = elem(Enum.at(attributes, 0), 1)
+  def to_result({_, _, titles} = result) do
+    path = Enum.at(result |> Floki.attribute("href"), 0)
     title = Enum.at(titles, 0)
     %PageChangeNotifier.Result{url: prepend_ebay_domain(path), title: title}
   end
