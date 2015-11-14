@@ -16,11 +16,11 @@ defmodule PageChangeNotifier.NotifierJob do
 
   def save_result(%Result{} = result) do
     attributes = %{url: result.url, title: result.title}
-    changeset = Result.changeset(%Result{}, attributes)
+    changeset = Result.changeset(result, attributes)
 
     case PageChangeNotifier.Repo.insert(changeset) do
-      {:ok, _result} ->
-        _result
+      {:ok, result} ->
+        result
       {:error, changeset} ->
         changeset
     end

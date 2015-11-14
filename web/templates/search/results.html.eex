@@ -1,8 +1,18 @@
 <div class="jumbotron">
   <h2>Search Results for <%= @query %></h2>
 
+  <h3>New results</h3>
   <ol>
-    <%= for result <- @results do %>
+    <%= for result <- @new_results do %>
+      <li>
+        <a href="<%= result.url %>"><%= result.title %></a>
+      </li>
+    <% end %>
+  </ol>
+
+  <h3>Existing results</h3>
+  <ol>
+    <%= for result <- @existing_results do %>
       <li>
         <a href="<%= result.url %>"><%= result.title %></a>
       </li>
