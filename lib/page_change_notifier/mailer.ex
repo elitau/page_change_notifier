@@ -1,13 +1,9 @@
 defmodule PageChangeNotifier.Mailer do
   use Mailgun.Client,
-      # domain: Application.get_env(:page_change_notifier, :mailgun_domain),
-      # key: Application.get_env(:page_change_notifier, :mailgun_key)
       domain: "https://api.mailgun.net/v3/appf4ce7ee709cd4c2cbef2fb1db76d877c.mailgun.org",
-      key: "key-74dcc9e37812eaa1cb65874547c654e9"
-      # domain: "https://api.mailgun.net/v3/#{System.get_env("MAILGUN_DOMAIN")}",
-      # key: System.get_env("MAILGUN_API_KEY")
-      # mode: Mix.env,
-      # test_file_path: "/tmp/mailgun.json"
+      key: "key-74dcc9e37812eaa1cb65874547c654e9",
+      mode: Mix.env,
+      test_file_path: "/tmp/mailgun.json"
 
   def send_new_results_text_email(email_address, results) do
     send_email to: email_address,
@@ -15,10 +11,10 @@ defmodule PageChangeNotifier.Mailer do
                subject: "Es gibt wieder was Neues",
                html: to_html(results)
   end
-  # PageChangeNotifier.Mailer.send_new_results_text_email("duarde.taulie@gmail.com", [%{title: "title", url: "asd"}])
+
   def to_html(results) do
     html_start <> html_results(results) <> html_end
-    # Phoenix.View.render_to_string(PageChangeNotifier.EmailView, "new_results.html", %{results: results})
+    Phoenix.View.render_to_string(PageChangeNotifier.EmailView, "new_results.html", %{results: results})
   end
 
   def html_results(results) do
