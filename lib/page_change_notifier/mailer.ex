@@ -1,9 +1,11 @@
 defmodule PageChangeNotifier.Mailer do
   use Mailgun.Client,
-      domain: "https://api.mailgun.net/v3/#{System.get_env("MAILGUN_DOMAIN")}",
-      key: System.get_env("MAILGUN_API_KEY"),
-      mode: Mix.env,
-      test_file_path: "/tmp/mailgun.json"
+      domain: Application.get_env(:page_change_notifier, :mailgun_domain),
+      key: Application.get_env(:page_change_notifier, :mailgun_key),
+      # domain: "https://api.mailgun.net/v3/#{System.get_env("MAILGUN_DOMAIN")}",
+      # key: System.get_env("MAILGUN_API_KEY")
+      # mode: Mix.env,
+      # test_file_path: "/tmp/mailgun.json"
 
   def send_new_results_text_email(email_address, results) do
     send_email to: email_address,
