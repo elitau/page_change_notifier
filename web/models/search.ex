@@ -18,7 +18,7 @@ defmodule PageChangeNotifier.Search do
   def to_result({_, attributes, titles}) do
     path = elem(Enum.at(attributes, 0), 1)
     title = Enum.at(titles, 0)
-    %{:url => prepend_ebay_domain(path), :title => title}
+    %PageChangeNotifier.Result{url: prepend_ebay_domain(path), title: title}
   end
 
   def prepend_ebay_domain(path) do

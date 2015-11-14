@@ -18,6 +18,7 @@ defmodule PageChangeNotifier.Router do
 
     get "/", PageController, :index
     get "/search", SearchController, :search
+    resources "/results", ResultController
   end
 
   # Other scopes may use custom stacks.
