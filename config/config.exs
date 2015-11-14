@@ -11,6 +11,8 @@ config :page_change_notifier, PageChangeNotifier.Endpoint,
   root: Path.dirname(__DIR__),
   secret_key_base: "a9U8z209ayu6zwEJybW/Gygkw9520G+6xEAA/3gBkYnVrMzVRiOw23nfvcTwOqa7",
   render_errors: [accepts: ~w(html json)],
+  mailgun_domain: System.get_env("MAILGUN_DOMAIN"),
+  mailgun_key: System.get_env("MAILGUN_API_KEY"),
   pubsub: [name: PageChangeNotifier.PubSub,
            adapter: Phoenix.PubSub.PG2]
 

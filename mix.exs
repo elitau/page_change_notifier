@@ -39,6 +39,7 @@ defmodule PageChangeNotifier.Mixfile do
      {:httpoison, "~> 0.8.0"},
      {:exvcr, github: "parroty/exvcr"},
      {:floki, "~> 0.7"},
+     {:mailgun, "~> 0.1.1"},
      {:cowboy, "~> 1.0"}]
   end
 

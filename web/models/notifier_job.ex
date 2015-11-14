@@ -2,7 +2,9 @@ defmodule PageChangeNotifier.NotifierJob do
   alias PageChangeNotifier.Result
 
   def run(url) do
-    without_existing(PageChangeNotifier.Search.run(url), PageChangeNotifier.Repo.all(Result)) |> save
+    without_existing(PageChangeNotifier.Search.run(url), PageChangeNotifier.Repo.all(Result))
+    |> save
+    |> notify
   end
 
   def without_existing(results, existing_results) do
@@ -24,5 +26,14 @@ defmodule PageChangeNotifier.NotifierJob do
       {:error, changeset} ->
         changeset
     end
+  end
+
+  def notify([]) do
+    []
+  end
+
+  def notify(results) do
+    PageChangeNotifier.Mailer.send_new_results_text_email("duarde.taulie@gmail.com", results)
+    results
   end
 end

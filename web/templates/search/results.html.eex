@@ -1,4 +1,4 @@
-<div class="jumbotron">
+<div>
   <h2>Search Results for <%= @query %></h2>
 
   <h3>New results</h3>
