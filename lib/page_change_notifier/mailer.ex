@@ -14,7 +14,7 @@ defmodule PageChangeNotifier.Mailer do
 
   def to_html(results) do
     html_start <> html_results(results) <> html_end
-    Phoenix.View.render_to_string(PageChangeNotifier.EmailView, "new_results.html", %{results: results})
+    # Phoenix.View.render_to_string(PageChangeNotifier.EmailView, "new_results.html", %{results: results})
   end
 
   def html_results(results) do
