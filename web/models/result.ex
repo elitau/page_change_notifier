@@ -8,8 +8,8 @@ defmodule PageChangeNotifier.Result do
     timestamps
   end
 
-  @required_fields ~w(url title)
-  @optional_fields ~w()
+  @required_fields ~w(url)
+  @optional_fields ~w(title)
 
   @doc """
   Creates a changeset based on the `model` and `params`.

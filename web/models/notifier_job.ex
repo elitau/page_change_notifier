@@ -1,6 +1,8 @@
 defmodule PageChangeNotifier.NotifierJob do
+  alias PageChangeNotifier.Result
+
   def run(url) do
-    without_existing(PageChangeNotifier.Search.run(url), PageChangeNotifier.Repo.all(PageChangeNotifier.Result))
+    without_existing(PageChangeNotifier.Search.run(url), PageChangeNotifier.Repo.all(Result)) |> save
   end
 
   def without_existing(results, existing_results) do
@@ -8,7 +10,19 @@ defmodule PageChangeNotifier.NotifierJob do
     results |> Enum.filter(fn(result) -> !Enum.member?(existing_urls, result.url) end)
   end
 
-  def notify(results) do
-    results
+  def save(results) do
+    results |> Enum.map(fn(result) -> save_result(result) end)
+  end
+
+  def save_result(%Result{} = result) do
+    attributes = %{url: result.url, title: result.title}
+    changeset = Result.changeset(%Result{}, attributes)
+
+    case PageChangeNotifier.Repo.insert(changeset) do
+      {:ok, _result} ->
+        _result
+      {:error, changeset} ->
+        changeset
+    end
   end
 end

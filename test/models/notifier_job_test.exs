@@ -20,11 +20,16 @@ defmodule PageChangeNotifier.NotifierJobTest do
       saved_result = Repo.insert! @existing_result
       new_results = NotifierJob.run(@ebay_url)
       new_urls = new_results |> Enum.map(fn(result) -> result.url end)
-      # assert new_results == []
       assert Enum.member?(new_urls, @new_result_url)
       assert !Enum.member?(new_urls, @existing_result_url)
-      # assert saved_result == new_urls
-      # assert 1 == new_results
+    end
+  end
+
+  test "save new results" do
+    use_cassette "ebay_fahrrad" do
+      NotifierJob.run(@ebay_url)
+      new_results = NotifierJob.run(@ebay_url)
+      assert new_results == []
     end
   end
 end
