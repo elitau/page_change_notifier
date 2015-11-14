@@ -13,6 +13,29 @@ defmodule PageChangeNotifier.Mailer do
   end
 
   def to_html(results) do
-    Phoenix.View.render_to_string(PageChangeNotifier.EmailView, "new_results.html", %{results: results})
+    html_start <> html_results(results) <> html_end
+    # Phoenix.View.render_to_string(PageChangeNotifier.EmailView, "new_results.html", %{results: results})
+  end
+
+  def html_results(results) do
+    Enum.join(Enum.map(results, fn(result) -> html_result(result) end))
+  end
+
+  def html_result(result) do
+    "<li><a href=\"#{result.url}\">#{result.title}</a></li>"
+  end
+
+  def html_start do
+    ~s(
+      <div class="content">
+        <h3>New results</h3>
+        <ol>
+      )
+  end
+
+  def html_end do
+    ~s(    </ol>
+      </div>
+      )
   end
 end
