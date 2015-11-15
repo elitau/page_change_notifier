@@ -5,12 +5,12 @@ defmodule PageChangeNotifier.User do
     field :name, :string
     field :yo_username, :string
     field :email, :string
-
+    has_many :search_agents, PageChangeNotifier.SearchAgent
     timestamps
   end
 
-  @required_fields ~w(name yo_username email)
-  @optional_fields ~w()
+  @required_fields ~w(email)
+  @optional_fields ~w(name yo_username)
 
   @doc """
   Creates a changeset based on the `model` and `params`.

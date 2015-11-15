@@ -9,6 +9,12 @@ defmodule PageChangeNotifier.NotifierJobTest do
   @existing_result %PageChangeNotifier.Result{url: @existing_result_url, title: "Fahrradrahmen pulverbeschichten Fahrrad Rahmen Pulverbeschichtung"}
   @new_result %PageChangeNotifier.Result{url: @new_result_url, title: "CHESINI Rennrad RH: 62cm, komplett Campagnolo (Bianchi)"}
   @ebay_url "http://www.ebay-kleinanzeigen.de/s-50937/fahrrad/k0l18675r5"
+  @search_agent %PageChangeNotifier.SearchAgent{url: @ebay_url, user_id: 23}
+  @user %PageChangeNotifier.User{
+    name: "name",
+    yo_username: "yo_username",
+    yo_username: "email"
+  }
 
   setup_all do
     ExVCR.Config.cassette_library_dir("test/fixtures/vcr_cassettes")
@@ -32,4 +38,18 @@ defmodule PageChangeNotifier.NotifierJobTest do
       assert new_results == []
     end
   end
+
+  test "notify new results for all search agents" do
+    use_cassette "ebay_fahrrad" do
+      saved_result = Repo.insert! @existing_result
+      user = Repo.insert! @user
+      search_agent = Repo.insert!(Map.merge(@search_agent, %{user_id: user.id}))
+      NotifierJob.search
+      # NotifierJob.run(@ebay_url)
+      new_results = NotifierJob.run(@ebay_url)
+      assert new_results == []
+    end
+  end
+
+
 end
