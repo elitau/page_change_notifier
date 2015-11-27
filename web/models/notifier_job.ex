@@ -5,11 +5,11 @@ defmodule PageChangeNotifier.NotifierJob do
     search_agents |> new_results |> notify_searches
   end
 
-  def run(url) do
-    without_existing(PageChangeNotifier.Search.run(url), PageChangeNotifier.Repo.all(Result))
-    |> save
-    |> notify
-  end
+  # def run(url) do
+  #   without_existing(PageChangeNotifier.Search.run(url), PageChangeNotifier.Repo.all(Result))
+  #   |> save
+  #   |> notify
+  # end
 
   def run do
     search
@@ -44,18 +44,18 @@ defmodule PageChangeNotifier.NotifierJob do
     PageChangeNotifier.Notifier.notify(search.search_agent, search.results)
   end
 
-  # def notify(%{user: user, results: results}) do
-  #   PageChangeNotifier.Mailer.send_new_results_text_email("duarde.taulie@gmail.com", results)
+  # # def notify(%{user: user, results: results}) do
+  # #   PageChangeNotifier.Mailer.send_new_results_text_email("duarde.taulie@gmail.com", results)
+  # # end
+
+  # def notify([]) do
+  #   []
   # end
 
-  def notify([]) do
-    []
-  end
-
-  def notify(results) do
-    PageChangeNotifier.Mailer.send_new_results_text_email("duarde.taulie@gmail.com", results)
-    results
-  end
+  # def notify(results) do
+  #   PageChangeNotifier.Mailer.send_new_results_text_email("duarde.taulie@gmail.com", results)
+  #   results
+  # end
 
   def search_agents do
     PageChangeNotifier.Repo.all(PageChangeNotifier.SearchAgent) |> PageChangeNotifier.Repo.preload(:user)
