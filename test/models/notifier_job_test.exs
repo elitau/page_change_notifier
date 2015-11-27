@@ -40,14 +40,11 @@ defmodule PageChangeNotifier.NotifierJobTest do
   end
 
   test "notify new results for all search agents" do
-    use_cassette "ebay_fahrrad" do
+    use_cassette "ebay_fahrrad_and_yo" do
       saved_result = Repo.insert! @existing_result
       user = Repo.insert! @user
-      search_agent = Repo.insert!(Map.merge(@search_agent, %{user_id: user.id}))
-      NotifierJob.search
-      # NotifierJob.run(@ebay_url)
-      new_results = NotifierJob.run(@ebay_url)
-      assert new_results == []
+      Repo.insert!(Map.merge(@search_agent, %{user_id: user.id}))
+      [{:ok, _}] = NotifierJob.run #(@ebay_url)
     end
   end
 
