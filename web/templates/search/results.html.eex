@@ -9,13 +9,4 @@
       </li>
     <% end %>
   </ol>
-
-  <h3>Existing results</h3>
-  <ol>
-    <%= for result <- @existing_results do %>
-      <li>
-        <a href="<%= result.url %>"><%= result.title %></a>
-      </li>
-    <% end %>
-  </ol>
 </div>
