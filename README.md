@@ -1,5 +1,12 @@
 # PageChangeNotifier
 
+## TODOs
+
+  * user session managament (create/login/current_user)
+  * simpler UI
+  * new websites(kalaydo, immoscout)
+  * exception notification
+
 To start your Phoenix app:
 
   1. Install dependencies with `mix deps.get`
