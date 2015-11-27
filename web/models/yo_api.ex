@@ -1,12 +1,10 @@
 defmodule PageChangeNotifier.YoApi do
-  # PageChangeNotifier.YoApi.send_link("hurx", "http://ede.li")
+  @api_token "68236d9b-c9ab-43ec-addc-d869fbb84684"
+
   def send_link(username, link) do
-    headers = []
-    api_token = "68236d9b-c9ab-43ec-addc-d869fbb84684" # searchnotifier
-    ctype   = 'application/x-www-form-urlencoded'
-    body    = URI.encode_query(%{username: username, link: link, api_token: api_token})
-    opts = []
-    url = String.to_char_list("https://api.justyo.co/yo/")
-    :httpc.request(:post, {url, headers, ctype, body}, opts, body_format: :binary)
+    body      = [username: username, link: link, api_token: @api_token]
+    headers   = %{"Content-type" => "application/x-www-form-urlencoded"}
+    HTTPoison.start
+    response = HTTPoison.post "https://api.justyo.co/yo/", {:form, body}, headers
   end
 end
