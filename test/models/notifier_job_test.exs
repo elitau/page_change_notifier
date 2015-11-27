@@ -2,7 +2,6 @@ defmodule PageChangeNotifier.NotifierJobTest do
   use PageChangeNotifier.ModelCase
   use ExUnit.Case
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
-  import Ecto.Query, only: [from: 2]
 
   alias PageChangeNotifier.NotifierJob
   @existing_result_url "http://www.ebay-kleinanzeigen.de/s-anzeige/lauflernrad/393002485-217-981"
