@@ -6,15 +6,13 @@ defmodule Mix.Tasks.PageChangeNotifier.Notify do
 
   def run(_args) do
     {:ok, _} = ensure_started(PageChangeNotifier.Repo)
-    # {:ok, _} = Application.ensure_all_started(:phoenix)
     Airbrake.start
-    new_results = nil
     try do
       new_results = PageChangeNotifier.NotifierJob.run
       Mix.shell.info "Found #{length(new_results)} new results"
     rescue
-      exception -> result = Airbrake.report(exception)
-      Mix.shell.info "Failed with #{result}"
+      exception -> Airbrake.report(exception)
+      Mix.shell.info "Failed with: #{inspect(exception)}"
     end
   end
 
