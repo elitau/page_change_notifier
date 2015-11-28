@@ -20,7 +20,7 @@ defmodule PageChangeNotifier.Mixfile do
     [mod: {PageChangeNotifier, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger,
                     :phoenix_ecto, :postgrex, :mailgun, :floki,
-                    :airbrake_plug, :httpoison]]
+                    :airbrake_plug, :httpoison, :mix]]
   end
 
   # Specifies which paths to compile per environment.

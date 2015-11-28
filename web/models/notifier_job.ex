@@ -1,13 +1,7 @@
 defmodule PageChangeNotifier.NotifierJob do
   alias PageChangeNotifier.Result
   def run do
-    Airbrake.start
-
-    try do
-      search_agents |> new_results |> notify_users
-    rescue
-      exception -> Airbrake.report(exception)
-    end
+    search_agents |> new_results |> notify_users
   end
 
   def search_agents do
