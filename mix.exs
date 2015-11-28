@@ -43,7 +43,8 @@ defmodule PageChangeNotifier.Mixfile do
       {:floki, "~> 0.7"},
       {:mailgun, "~> 0.1.1"},
       {:cowboy, "~> 1.0"},
-      {:airbrake_plug, "~> 0.1.0"}
+      {:airbrake_plug, "~> 0.1.0"},
+      {:airbrake, git: "https://github.com/elitau/airbrake-elixir.git", override: true}
     ]
   end
 

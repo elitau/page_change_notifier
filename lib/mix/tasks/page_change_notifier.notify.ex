@@ -13,8 +13,8 @@ defmodule Mix.Tasks.PageChangeNotifier.Notify do
       new_results = PageChangeNotifier.NotifierJob.run
       Mix.shell.info "Found #{length(new_results)} new results"
     rescue
-      exception -> Airbrake.report(exception)
-      Mix.shell.info "Failed with #{to_string(exception)}"
+      exception -> result = Airbrake.report(exception)
+      Mix.shell.info "Failed with #{result}"
     end
   end
 
