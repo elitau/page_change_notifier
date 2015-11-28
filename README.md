@@ -5,7 +5,7 @@
   * user session managament (create/login/current_user)
   * simpler UI
   * new websites(kalaydo, immoscout)
-  * exception notification
+  * ~~exception notification~~
 
 To start your Phoenix app:
 
