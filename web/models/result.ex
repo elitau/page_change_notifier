@@ -4,6 +4,7 @@ defmodule PageChangeNotifier.Result do
   schema "results" do
     field :url, :string
     field :title, :string
+    belongs_to :search_agent, PageChangeNotifier.SearchAgent
 
     timestamps
   end

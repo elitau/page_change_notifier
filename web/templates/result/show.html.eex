@@ -12,6 +12,11 @@
     <%= @result.title %>
   </li>
 
+  <li>
+    <strong>search_agent_id:</strong>
+    <%= @result.search_agent_id %>
+  </li>
+
 </ul>
 
 <%= link "Edit", to: result_path(@conn, :edit, @result) %>

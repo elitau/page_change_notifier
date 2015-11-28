@@ -23,5 +23,4 @@ defmodule PageChangeNotifier.NotifierTest do
       PageChangeNotifier.Notifier.notify(@search_agent, @results)
     end
   end
-
 end

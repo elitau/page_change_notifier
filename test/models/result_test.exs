@@ -3,7 +3,8 @@ defmodule PageChangeNotifier.ResultTest do
 
   alias PageChangeNotifier.Result
 
-  @valid_attrs %{title: "some content", url: "some content"}
+  @search_agent %PageChangeNotifier.SearchAgent{url: "some_url", user_id: 23}
+  @valid_attrs %{title: "some content", url: "some content", search_agent: @search_agent}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do
