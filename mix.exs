@@ -19,7 +19,8 @@ defmodule PageChangeNotifier.Mixfile do
   def application do
     [mod: {PageChangeNotifier, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger,
-                    :phoenix_ecto, :postgrex, :mailgun, :floki]]
+                    :phoenix_ecto, :postgrex, :mailgun, :floki,
+                    :airbrake_plug, :httpoison]]
   end
 
   # Specifies which paths to compile per environment.
@@ -30,17 +31,20 @@ defmodule PageChangeNotifier.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:phoenix, "~> 1.0.3"},
-     {:phoenix_ecto, "~> 1.1"},
-     {:postgrex, ">= 0.0.0"},
-     {:phoenix_html, "~> 2.1"},
-     {:phoenix_live_reload, "~> 1.0", only: :dev},
-     {:poison, "~> 1.5"},
-     {:httpoison, "~> 0.8.0"},
-     {:exvcr, github: "parroty/exvcr"},
-     {:floki, "~> 0.7"},
-     {:mailgun, "~> 0.1.1"},
-     {:cowboy, "~> 1.0"}]
+    [
+      {:phoenix, "~> 1.0.3"},
+      {:phoenix_ecto, "~> 1.1"},
+      {:postgrex, ">= 0.0.0"},
+      {:phoenix_html, "~> 2.1"},
+      {:phoenix_live_reload, "~> 1.0", only: :dev},
+      {:poison, "~> 1.5"},
+      {:httpoison, "~> 0.8"},
+      {:exvcr, github: "parroty/exvcr"},
+      {:floki, "~> 0.7"},
+      {:mailgun, "~> 0.1.1"},
+      {:cowboy, "~> 1.0"},
+      {:airbrake_plug, "~> 0.1.0"}
+    ]
   end
 
   # Aliases are shortcut or tasks specific to the current project.

@@ -1,5 +1,6 @@
 defmodule PageChangeNotifier.Router do
   use PageChangeNotifier.Web, :router
+  use AirbrakePlug
 
   pipeline :browser do
     plug :accepts, ["html"]

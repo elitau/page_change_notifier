@@ -29,3 +29,7 @@ import_config "#{Mix.env}.exs"
 config :phoenix, :generators,
   migration: true,
   binary_id: false
+
+config :airbrake,
+  api_key: System.get_env("AIRBRAKE_API_KEY"),
+  project_id: System.get_env("AIRBRAKE_PROJECT_ID")

@@ -5,6 +5,6 @@ defmodule PageChangeNotifier.YoApi do
     body      = [username: username, link: link, api_token: @api_token]
     headers   = %{"Content-type" => "application/x-www-form-urlencoded"}
     HTTPoison.start
-    response = HTTPoison.post "https://api.justyo.co/yo/", {:form, body}, headers
+    HTTPoison.post "https://api.justyo.co/yo/", {:form, body}, headers
   end
 end
