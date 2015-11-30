@@ -1,7 +1,6 @@
 <h2>Show search agent</h2>
 
 <ul>
-
   <li>
     <strong>Url:</strong>
     <%= @search_agent.url %>
@@ -11,7 +10,15 @@
     <strong>User:</strong>
     <%= @search_agent.user_id %>
   </li>
+</ul>
 
+<ul>
+  <%= for result <- @new_results do %>
+    <li>
+      <strong>Url:</strong>
+      <%= result.url %>
+    </li>
+  <% end %>
 </ul>
 
 <%= link "Edit", to: search_agent_path(@conn, :edit, @search_agent) %>

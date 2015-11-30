@@ -29,8 +29,9 @@ defmodule PageChangeNotifier.SearchAgentController do
   end
 
   def show(conn, %{"id" => id}) do
-    search_agent = Repo.get!(SearchAgent, id)
-    render(conn, "show.html", search_agent: search_agent)
+    search_agent = Repo.get!(SearchAgent, id) |> PageChangeNotifier.Repo.preload(:results)
+    # search = PageChangeNotifier.NotifierJob.new_result(search_agent)
+    render(conn, "show.html", search_agent: search_agent, new_results: []) #search.new_results)
   end
 
   def edit(conn, %{"id" => id}) do
