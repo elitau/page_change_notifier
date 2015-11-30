@@ -54,13 +54,16 @@ defmodule PageChangeNotifier.NotifierJobTest do
     use_cassette "kalaydo_fahrrad_and_yo" do
       user = Repo.insert! @user
       search_agent = Repo.insert!(Map.merge(@kalaydo_search_agent, %{user_id: user.id}))
-      NotifierJob.run
+      searches_with_results = NotifierJob.run
 
       result = Repo.get_by(PageChangeNotifier.Result, url: @first_kalaydo_element)
       assert result.id
       assert result.search_agent_id == search_agent.id
       all = PageChangeNotifier.Repo.all(PageChangeNotifier.Result)
       assert 25 == Enum.count(all)
+
+      new_results = Enum.at(searches_with_results, 0).new_results
+      assert 25 == Enum.count(new_results)
     end
   end
 
