@@ -1,27 +1,17 @@
 defmodule PageChangeNotifier.Search do
   def run(page_url) do
-    page_url |> get_page_html |> extract_results
+    page_url |> get_page_html |> extract_results(page_url)
   end
 
   def get_page_html(page_url) do
     PageChangeNotifier.Webpage.get_body(page_url)
   end
 
-  def extract_results(page_html) do
-    page_html |> Floki.find("article h2 a") |> to_results
+  def extract_results(page_html, page_url) do
+    extractor_for(page_url).extract_results(page_html)
   end
 
-  def to_results(html_elements) do
-    html_elements |> Enum.map(fn(html_element) -> to_result(html_element) end)
-  end
-
-  def to_result({_, _, titles} = result) do
-    path = Enum.at(result |> Floki.attribute("href"), 0)
-    title = Enum.at(titles, 0)
-    %PageChangeNotifier.Result{url: prepend_ebay_domain(path), title: title}
-  end
-
-  def prepend_ebay_domain(path) do
-    "http://www.ebay-kleinanzeigen.de#{path}"
+  def extractor_for(page_url) do
+    PageChangeNotifier.Extractor.for(page_url)
   end
 end
