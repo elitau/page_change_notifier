@@ -17,6 +17,11 @@ defmodule PageChangeNotifier.KalaydoExtractorTest do
   test "extract url" do
     results = PageChangeNotifier.Extractor.Kalaydo.extract_results(fixture_html("kalaydo"))
     assert Enum.at(results, 0).url == @first_kalaydo_element
+    results |> Enum.map(
+      fn(result) ->
+        assert result.url =~ ~r/kleinanzeigen/
+      end
+    )
   end
 
   def fixture_html(name) do

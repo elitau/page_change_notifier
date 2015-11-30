@@ -31,18 +31,21 @@ defmodule PageChangeNotifier.Extractor do
     end
 
     def to_results(html_elements) do
-      html_elements |> Enum.map(fn(html_element) -> to_result(html_element) end)
+      html_elements |> filter |> Enum.map(fn(html_element) -> to_result(html_element) end)
     end
 
-    def to_result({_, _, titles} = html_element) do
+    defp filter(html_elements) do
+      html_elements |> Enum.filter(fn(html_element) -> extract_href(html_element) != nil end)
+    end
+
+    def to_result(html_element) do
+      path = html_element |> extract_href |> to_path
+      %PageChangeNotifier.Result{url: path, title: path}
+    end
+
+    defp extract_href(html_element) do
       hrefs = html_element |> Floki.find(".resultHeadLine a") |> Floki.attribute("href")
-      href = Enum.at(hrefs, 0)
-
-      %PageChangeNotifier.Result{url: to_path(href), title: "title"}
-    end
-
-    defp to_path(nil) do
-      "no path"
+      Enum.at(hrefs, 0)
     end
 
     defp to_path(element_href) do
