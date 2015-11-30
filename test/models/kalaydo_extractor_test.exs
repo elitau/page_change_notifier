@@ -2,7 +2,6 @@ defmodule PageChangeNotifier.KalaydoExtractorTest do
   use PageChangeNotifier.ModelCase
   @kalaydo_url "http://www.kalaydo.de/kleinanzeigen/2/3/k/fahrrad/?LOCATION=250667010&DISTANCE=100"
   @first_kalaydo_element "http://www.kalaydo.de/kleinanzeigen/mountainbike/kinderfahrrad-mtb-26-zoll-zuendapp/a/83037515/"
-  @valid_url_schema "http://www.ebay-kleinanzeigen.de/s-anzeige"
 
   test "factory" do
     extractor = PageChangeNotifier.Extractor.for(@kalaydo_url)

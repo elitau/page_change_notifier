@@ -6,9 +6,13 @@ defmodule PageChangeNotifier.NotifierJobTest do
   alias PageChangeNotifier.NotifierJob
   @ebay_url "http://www.ebay-kleinanzeigen.de/s-50937/fahrrad/k0l18675r5"
   @existing_result_url "http://www.ebay-kleinanzeigen.de/s-anzeige/lauflernrad/393002485-217-981"
+  @kalaydo_url "http://www.kalaydo.de/kleinanzeigen/2/3/k/fahrrad/?LOCATION=250667010&DISTANCE=100"
+  @first_kalaydo_element "http://www.kalaydo.de/kleinanzeigen/mountainbike/kinderfahrrad-mtb-26-zoll-zuendapp/a/83037515/"
   @search_agent %PageChangeNotifier.SearchAgent{url: @ebay_url, user_id: 23}
+  @kalaydo_search_agent %PageChangeNotifier.SearchAgent{url: @kalaydo_url, user_id: 23}
   @new_result_url "http://www.ebay-kleinanzeigen.de/s-anzeige/silbernes-mountainbike/393097973-217-20670"
   @existing_result %PageChangeNotifier.Result{url: @existing_result_url, title: "Fahrradrahmen pulverbeschichten Fahrrad Rahmen Pulverbeschichtung"}
+  @kalaydo_existing_result %PageChangeNotifier.Result{url: @first_kalaydo_element, title: "dunno title"}
   @new_result %PageChangeNotifier.Result{url: @new_result_url, title: "CHESINI Rennrad RH: 62cm, komplett Campagnolo (Bianchi)"}
   @user %PageChangeNotifier.User{
     name: "name",
@@ -43,6 +47,20 @@ defmodule PageChangeNotifier.NotifierJobTest do
       result = Repo.get_by(PageChangeNotifier.Result, url: @new_result_url)
       assert result.id
       assert result.search_agent_id == search_agent.id
+    end
+  end
+
+  test "kalaydo results" do
+    use_cassette "kalaydo_fahrrad_and_yo" do
+      user = Repo.insert! @user
+      search_agent = Repo.insert!(Map.merge(@kalaydo_search_agent, %{user_id: user.id}))
+      NotifierJob.run
+
+      result = Repo.get_by(PageChangeNotifier.Result, url: @first_kalaydo_element)
+      assert result.id
+      assert result.search_agent_id == search_agent.id
+      all = PageChangeNotifier.Repo.all(PageChangeNotifier.Result)
+      assert 25 == Enum.count(all)
     end
   end
 

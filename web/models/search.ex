@@ -1,4 +1,8 @@
 defmodule PageChangeNotifier.Search do
+  def run do
+    []
+  end
+
   def run(page_url) do
     page_url |> get_page_html |> extract_results(page_url)
   end

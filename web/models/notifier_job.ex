@@ -12,8 +12,12 @@ defmodule PageChangeNotifier.NotifierJob do
 
   def new_results(search_agents) do
     search_agents |> Enum.map(
-      fn(search_agent) -> %{search_agent: search_agent, new_results: new_results_for(search_agent)} end
+      fn(search_agent) -> new_result(search_agent) end
     )
+  end
+
+  def new_result(search_agent) do
+    %{search_agent: search_agent, new_results: new_results_for(search_agent)}
   end
 
   def new_results_for(search_agent) do
