@@ -2,6 +2,7 @@ defmodule PageChangeNotifier.SearchAgentControllerTest do
   use PageChangeNotifier.ConnCase
 
   alias PageChangeNotifier.SearchAgent
+  alias PageChangeNotifier.Result
   @valid_attrs %{url: "some content"}
   @invalid_attrs %{}
 
@@ -64,6 +65,7 @@ defmodule PageChangeNotifier.SearchAgentControllerTest do
 
   test "deletes chosen resource", %{conn: conn} do
     search_agent = Repo.insert! %SearchAgent{}
+    Repo.insert! %Result{search_agent_id: search_agent.id}
     conn = delete conn, search_agent_path(conn, :delete, search_agent)
     assert redirected_to(conn) == search_agent_path(conn, :index)
     refute Repo.get(SearchAgent, search_agent.id)

@@ -55,8 +55,8 @@ defmodule PageChangeNotifier.SearchAgentController do
   end
 
   def delete(conn, %{"id" => id}) do
-    search_agent = Repo.get!(SearchAgent, id)
-
+    search_agent = Repo.get!(SearchAgent, id) |> PageChangeNotifier.Repo.preload(:results)
+    search_agent.results |> Enum.map(fn(result) -> Repo.delete!(result) end)
     # Here we use delete! (with a bang) because we expect
     # it to always work (and if it does not, it will raise).
     Repo.delete!(search_agent)
