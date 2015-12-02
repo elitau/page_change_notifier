@@ -1,0 +1,11 @@
+<div class="jumbotron">
+  <h2>Login</h2>
+  <p class="lead">An account will be created if your username is unknown.</p>
+  <form action="/create_or_login">
+    <label>
+      Username:
+      <input type="text" name="username" placeholder="joe"></input>
+    </label>
+    <button type="submit" value="Submit">Submit</button>
+  </form>
+</div>

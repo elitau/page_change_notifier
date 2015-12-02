@@ -15,10 +15,15 @@
     <div class="container" role="main">
       <div class="header">
         <ul class="nav nav-pills pull-right">
-          <li><a href="/results">results</a></li>
-          <li><a href="/users">users</a></li>
+          <li><a href="/login">Login</a></li>
+          <li><a href="/logout">Logout</a></li>
+          <%# <li><a href="/results">results</a></li> %>
+          <%# <li><a href="/users">users</a></li> %>
           <li><a href="/search_agents">search_agents</a></li>
-          <li><a href="/">Search</a></li>
+          <li><a href="/">Home</a></li>
+        </ul>
+
+        <ul class="nav nav-pills pull-left">
         </ul>
       </div>
 
