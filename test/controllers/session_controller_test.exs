@@ -6,8 +6,8 @@ defmodule PageChangeNotifier.SessionControllerTest do
     {:ok, conn: conn}
   end
 
-  test "lists all entries on index", %{conn: conn} do
-    conn = get conn(), "/login"
-    assert html_response(conn, 200) =~ "Login"
+  test "render login template", %{conn: conn} do
+    conn = get conn, session_path(conn, :new)
+    assert html_response(conn, 200) =~ "Login or register"
   end
 end
