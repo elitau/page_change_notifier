@@ -1,0 +1,23 @@
+<h2>Show result</h2>
+
+<ul>
+
+  <li>
+    <strong>Url:</strong>
+    <%= @result.url %>
+  </li>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @result.title %>
+  </li>
+
+  <li>
+    <strong>search_agent_id:</strong>
+    <%= @result.search_agent_id %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: result_path(@conn, :edit, @result) %>
+<%= link "Back", to: result_path(@conn, :index) %>

@@ -8,7 +8,7 @@ defmodule PageChangeNotifier.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-    plug PageChangeNotifier.Plug.Authenticate
+    # plug PageChangeNotifier.Plug.Authenticate
   end
 
   pipeline :api do
@@ -19,9 +19,10 @@ defmodule PageChangeNotifier.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
-    get "/login", PageController, :login
-    get "/logout", PageController, :logout
-    get "/create_or_login", PageController, :create_or_login
+    get "/login",  SessionController, :new
+    post "/login", SessionController, :create
+    # get "/logout", PageController, :logout
+    # get "/create_or_login", PageController, :create_or_login
     get "/search", SearchController, :search
     resources "/results", ResultController
     resources "/users", UserController

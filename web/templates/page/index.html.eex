@@ -1,9 +1,9 @@
 <div class="jumbotron">
   <h2>Notification on new search results</h2>
   <p class="lead">Enter a search results url for ebay kleinanzeigen.</p>
-  <%= if @current_user do %>
-    Logged in as: <%= @current_user %>
-  <% end %>
+  <%#= if @current_user do %>
+    <%# Logged in as: <%= @current_user %> %>
+  <%# end %>
   <form action="/search">
     <label>
       URL:

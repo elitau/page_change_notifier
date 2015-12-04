@@ -30,6 +30,7 @@ defmodule PageChangeNotifier.Web do
       use Phoenix.Controller
 
       alias PageChangeNotifier.Repo
+      alias PageChangeNotifier.User
       import Ecto.Model
       import Ecto.Query, only: [from: 1, from: 2]
 
