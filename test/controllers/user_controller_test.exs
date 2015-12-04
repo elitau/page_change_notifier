@@ -2,7 +2,7 @@ defmodule PageChangeNotifier.UserControllerTest do
   use PageChangeNotifier.ConnCase
 
   alias PageChangeNotifier.User
-  @valid_attrs %{email: "some content", name: "some content", yo_username: "some content"}
+  @valid_attrs %{email: "some content", username: "username", yo_username: "some content"}
   @invalid_attrs %{}
 
   setup do

@@ -15,7 +15,7 @@ defmodule PageChangeNotifier.NotifierJobTest do
   @kalaydo_existing_result %PageChangeNotifier.Result{url: @first_kalaydo_element, title: "dunno title"}
   @new_result %PageChangeNotifier.Result{url: @new_result_url, title: "CHESINI Rennrad RH: 62cm, komplett Campagnolo (Bianchi)"}
   @user %PageChangeNotifier.User{
-    name: "name",
+    username: "username",
     yo_username: "yo_username",
     yo_username: "email"
   }

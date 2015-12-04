@@ -2,7 +2,7 @@ defmodule PageChangeNotifier.User do
   use PageChangeNotifier.Web, :model
 
   schema "users" do
-    field :name, :string
+    field :username, :string
     field :yo_username, :string
     field :email, :string
     has_many :search_agents, PageChangeNotifier.SearchAgent
@@ -10,7 +10,7 @@ defmodule PageChangeNotifier.User do
   end
 
   @required_fields ~w(email)
-  @optional_fields ~w(name yo_username)
+  @optional_fields ~w(username yo_username)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
