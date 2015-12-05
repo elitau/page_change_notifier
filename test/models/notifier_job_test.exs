@@ -17,7 +17,7 @@ defmodule PageChangeNotifier.NotifierJobTest do
   @user %PageChangeNotifier.User{
     username: "username",
     yo_username: "yo_username",
-    yo_username: "email"
+    email: "email"
   }
 
   setup_all do
