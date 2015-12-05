@@ -21,8 +21,7 @@ defmodule PageChangeNotifier.Router do
     get "/", PageController, :index
     get "/login",  SessionController, :new
     post "/login", SessionController, :create
-    # get "/logout", PageController, :logout
-    # get "/create_or_login", PageController, :create_or_login
+    get "/logout", SessionController, :delete
     get "/search", SearchController, :search
     resources "/results", ResultController
     resources "/users", UserController
