@@ -36,19 +36,6 @@ defmodule PageChangeNotifier.SessionController do
       |> redirect(to: session_path(conn, :new))
   end
 
-  # create user
-  defp sign_in(user, conn, username) when is_nil(user) do
-    create_user(username)
-      |> sign_in(conn, username)
-  end
-
-  defp sign_in(user, conn, _username) when is_map(user) do
-    conn
-      |> put_session(:current_user, user)
-      |> put_flash(:info, 'You are now signed in.')
-      |> redirect(to: page_path(conn, :index))
-  end
-
   defp create_user(username) do
     Repo.insert! %User{ username: username }
   end
