@@ -18,4 +18,11 @@ defmodule PageChangeNotifier.SessionControllerTest do
     assert html_response(conn, 302)
     assert Repo.get_by(PageChangeNotifier.User, username: "luke")
   end
+
+  test "login user if username matches existing user", %{conn: conn} do
+    Repo.insert! %PageChangeNotifier.User{ username: "luke" }
+    conn = post conn, session_path(conn, :create), user: @valid_attrs
+    assert redirected_to(conn) == search_agent_path(conn, :index)
+    assert html_response(conn, 302)
+  end
 end
