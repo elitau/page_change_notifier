@@ -16,7 +16,9 @@ defmodule PageChangeNotifier.SessionControllerTest do
   test "create user", %{conn: conn} do
     conn = post conn, session_path(conn, :create), user: @valid_attrs
     assert html_response(conn, 302)
-    assert Repo.get_by(PageChangeNotifier.User, username: "luke")
+    user = Repo.get_by(PageChangeNotifier.User, username: "luke")
+    assert user
+    assert redirected_to(conn) == user_path(conn, :edit, user)
   end
 
   test "login user if username matches existing user", %{conn: conn} do

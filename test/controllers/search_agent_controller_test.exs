@@ -8,6 +8,8 @@ defmodule PageChangeNotifier.SearchAgentControllerTest do
 
   setup do
     conn = conn()
+    user = Repo.insert! %PageChangeNotifier.User{ username: "luke" }
+    conn = assign(conn, :current_user, user)
     {:ok, conn: conn}
   end
 
@@ -64,10 +66,11 @@ defmodule PageChangeNotifier.SearchAgentControllerTest do
   end
 
   test "deletes chosen resource", %{conn: conn} do
-    search_agent = Repo.insert! %SearchAgent{}
-    Repo.insert! %Result{search_agent_id: search_agent.id}
+    search_agent = Repo.insert! %SearchAgent{url: "url"}
+    result = Repo.insert! %Result{search_agent_id: search_agent.id}
     conn = delete conn, search_agent_path(conn, :delete, search_agent)
     assert redirected_to(conn) == search_agent_path(conn, :index)
     refute Repo.get(SearchAgent, search_agent.id)
+    refute Repo.get(Result, result.id)
   end
 end
