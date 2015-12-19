@@ -18,12 +18,12 @@ defmodule PageChangeNotifier.SessionController do
       if is_nil(user) do
         user = create_user(user_params["username"])
         conn
-          |> put_session(:current_user, user)
+          |> put_session(:current_user_id, user.id)
           |> put_flash(:info, 'User created')
           |> redirect(to: user_path(conn, :edit, user))
       else
         conn
-          |> put_session(:current_user, user)
+          |> put_session(:current_user_id, user.id)
           |> put_flash(:info, 'You are now signed in.')
           |> redirect(to: search_agent_path(conn, :index))
       end
@@ -31,7 +31,7 @@ defmodule PageChangeNotifier.SessionController do
   end
 
   def delete(conn, _) do
-    delete_session(conn, :current_user)
+    delete_session(conn, :current_user_id)
       |> put_flash(:info, 'You have been logged out')
       |> redirect(to: session_path(conn, :new))
   end

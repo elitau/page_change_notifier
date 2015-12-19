@@ -7,9 +7,10 @@ defmodule PageChangeNotifier.SearchAgentControllerTest do
   @invalid_attrs %{}
 
   setup do
-    conn = conn()
     user = Repo.insert! %PageChangeNotifier.User{ username: "luke" }
-    conn = assign(conn, :current_user, user)
+    conn = conn()
+            |> put_private(:authenticated_current_user_id, user.id)
+
     {:ok, conn: conn}
   end
 

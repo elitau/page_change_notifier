@@ -3,7 +3,7 @@ defmodule PageChangeNotifier.SearchAgentController do
 
   alias PageChangeNotifier.SearchAgent
 
-  # plug PageChangeNotifier.Plug.Authenticate
+  plug PageChangeNotifier.Plug.Authenticate
   plug :scrub_params, "search_agent" when action in [:create, :update]
 
   def index(conn, _params) do

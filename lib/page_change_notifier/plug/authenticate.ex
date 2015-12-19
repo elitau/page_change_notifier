@@ -6,14 +6,23 @@ defmodule PageChangeNotifier.Plug.Authenticate do
   def init(default), do: default
 
   def call(conn, default) do
-    current_user = get_session(conn, :current_user)
-    if current_user do
-      assign(conn, :current_user, current_user)
-    else
-      conn
-        |> put_flash(:error, 'You need to be signed in to view this page')
-        |> redirect(to: session_path(conn, :new))
-        |> halt
+    case conn |> current_user_id do
+      nil ->
+        conn
+          |> put_flash(:error, "You must be logged in")
+          |> redirect(to: session_path(conn, :new))
+          |> halt
+      current_user_id ->
+        conn |> assign(:current_user, PageChangeNotifier.Repo.get(PageChangeNotifier.User, current_user_id))
+    end
+  end
+
+  defp current_user_id(conn) do
+    case Mix.env do
+      :test ->
+        conn.private[:authenticated_current_user_id]
+      _ ->
+        conn |> fetch_session |> get_session(:current_user_id)
     end
   end
 end
