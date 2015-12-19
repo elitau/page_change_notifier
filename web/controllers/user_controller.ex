@@ -3,6 +3,7 @@ defmodule PageChangeNotifier.UserController do
 
   alias PageChangeNotifier.User
 
+  plug PageChangeNotifier.Plug.Authenticate
   plug :scrub_params, "user" when action in [:create, :update]
 
   def index(conn, _params) do

@@ -1,6 +1,6 @@
 defmodule PageChangeNotifier.PageController do
   use PageChangeNotifier.Web, :controller
-  # plug PageChangeNotifier.Plug.Authenticate when action in [:index]
+  plug PageChangeNotifier.Plug.Authenticate
 
   def index(conn, _params) do
     render conn, "index.html"

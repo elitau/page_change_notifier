@@ -6,7 +6,10 @@ defmodule PageChangeNotifier.ResultControllerTest do
   @invalid_attrs %{}
 
   setup do
+    user = Repo.insert! %PageChangeNotifier.User{ username: "luke" }
     conn = conn()
+           |> put_private(:authenticated_current_user_id, user.id)
+
     {:ok, conn: conn}
   end
 

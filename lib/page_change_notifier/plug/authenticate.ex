@@ -13,7 +13,8 @@ defmodule PageChangeNotifier.Plug.Authenticate do
           |> redirect(to: session_path(conn, :new))
           |> halt
       current_user_id ->
-        conn |> assign(:current_user, PageChangeNotifier.Repo.get(PageChangeNotifier.User, current_user_id))
+        user = PageChangeNotifier.Repo.get(PageChangeNotifier.User, current_user_id)
+        conn |> assign(:current_user, user)
     end
   end
 

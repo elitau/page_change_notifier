@@ -3,8 +3,10 @@ defmodule PageChangeNotifier.SessionController do
   alias PageChangeNotifier.User
 
   plug :scrub_params, "user" when action in [:create]
+  plug PageChangeNotifier.Plug.Authenticate when action in [:delete]
 
   def new(conn, _params) do
+    conn = assign(conn, :current_user, nil)
     render conn, changeset: User.changeset(%User{})
   end
 

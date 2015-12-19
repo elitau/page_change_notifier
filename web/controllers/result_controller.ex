@@ -3,6 +3,7 @@ defmodule PageChangeNotifier.ResultController do
 
   alias PageChangeNotifier.Result
 
+  plug PageChangeNotifier.Plug.Authenticate
   plug :scrub_params, "result" when action in [:create, :update]
 
   def index(conn, _params) do

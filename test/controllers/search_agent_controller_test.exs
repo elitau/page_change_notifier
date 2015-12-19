@@ -9,7 +9,7 @@ defmodule PageChangeNotifier.SearchAgentControllerTest do
   setup do
     user = Repo.insert! %PageChangeNotifier.User{ username: "luke" }
     conn = conn()
-            |> put_private(:authenticated_current_user_id, user.id)
+           |> put_private(:authenticated_current_user_id, user.id)
 
     {:ok, conn: conn}
   end
