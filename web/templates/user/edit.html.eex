@@ -1,4 +1,4 @@
-<h2>Edit user</h2>
+<h2>Edit your notification settings</h2>
 
 <%= render "form.html", changeset: @changeset,
                         action: user_path(@conn, :update, @user) %>
