@@ -9,8 +9,8 @@ defmodule PageChangeNotifier.User do
     timestamps
   end
 
-  @required_fields ~w(email)
-  @optional_fields ~w(username yo_username)
+  @required_fields ~w(username)
+  @optional_fields ~w(email yo_username)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -21,5 +21,6 @@ defmodule PageChangeNotifier.User do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
+    |> unique_constraint(:username)
   end
 end
