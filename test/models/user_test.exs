@@ -3,7 +3,7 @@ defmodule PageChangeNotifier.UserTest do
 
   alias PageChangeNotifier.User
 
-  @valid_attrs %{email: "some content", name: "some content", yo_username: "some content"}
+  @valid_attrs %{email: "some content", username: "some content", yo_username: "some content"}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do
