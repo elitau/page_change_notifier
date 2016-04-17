@@ -17,7 +17,8 @@ defmodule PageChangeNotifier.SearchAgentController do
   end
 
   def create(conn, %{"search_agent" => search_agent_params}) do
-    changeset = SearchAgent.changeset(%SearchAgent{}, search_agent_params)
+    params = Map.merge(search_agent_params, %{"user_id" => conn.assigns[:current_user].id})
+    changeset = SearchAgent.changeset(%SearchAgent{}, params)
 
     case Repo.insert(changeset) do
       {:ok, _search_agent} ->
