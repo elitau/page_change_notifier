@@ -1,5 +1,12 @@
 <h2>New search agent</h2>
 
+<h4>Supported websites</h4>
+<ul>
+  <li><a href="https://www.ebay-kleinanzeigen.de/s-zu-verschenken/koeln/c192l945">Ebay Kleinanzeigen</a></li>
+  <li><a href="http://www.immobilienscout24.de/Suche/S-T/Wohnung-Miete/Nordrhein-Westfalen/Koeln/Ehrenfeld/-/-/EURO--500,00">Immobilienscout24</a></li>
+  <li><a href="http://www.kalaydo.de/kleinanzeigen/2/3/k/fahrrad/?DISTANCE=15&LOCATION=250823010&LOCATION_TEXT=50823+Ehrenfeld+%28K%F6ln%29&sort=1">Kalaydo</a></li>
+</ul>
+
 <%= render "form.html", changeset: @changeset,
                         action: search_agent_path(@conn, :create) %>
 
