@@ -7,7 +7,11 @@ defmodule PageChangeNotifier.SearchAgentController do
   plug :scrub_params, "search_agent" when action in [:create, :update]
 
   def index(conn, _params) do
-    search_agents = Repo.all assoc(conn.assigns[:current_user], :search_agents)
+    if conn.assigns[:current_user].username == "zecke" do
+      search_agents = Repo.all(SearchAgent)
+    else
+      search_agents = Repo.all assoc(conn.assigns[:current_user], :search_agents)
+    end
     render(conn, "index.html", search_agents: search_agents)
   end
 
