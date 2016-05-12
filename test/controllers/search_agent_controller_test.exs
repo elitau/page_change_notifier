@@ -14,9 +14,16 @@ defmodule PageChangeNotifier.SearchAgentControllerTest do
     {:ok, conn: conn}
   end
 
-  test "lists all entries on index", %{conn: conn} do
+  test "lists users search_agents on index", %{conn: conn} do
     conn = get conn, search_agent_path(conn, :index)
     assert html_response(conn, 200) =~ "Listing search agents"
+  end
+
+  test "hides other users search_agents on index", %{conn: conn} do
+    vader = Repo.insert! %PageChangeNotifier.User{ username: "vader" }
+    %SearchAgent{ url: "vaders url", user_id: vader.id } |> Repo.insert!
+    conn = get conn, search_agent_path(conn, :index)
+    assert !(html_response(conn, 200) =~ "vaders url")
   end
 
   test "renders form for new resources", %{conn: conn} do
