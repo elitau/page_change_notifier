@@ -49,7 +49,7 @@ defmodule PageChangeNotifier.UserControllerTest do
   test "renders form for editing chosen resource", %{conn: conn} do
     user = Repo.insert! %User{}
     conn = get conn, user_path(conn, :edit, user)
-    assert html_response(conn, 200) =~ "Edit user"
+    assert html_response(conn, 200) =~ "Edit your"
   end
 
   test "updates chosen resource and redirects when data is valid", %{conn: conn} do
@@ -62,7 +62,7 @@ defmodule PageChangeNotifier.UserControllerTest do
   test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
     user = Repo.insert! %User{}
     conn = put conn, user_path(conn, :update, user), user: @invalid_attrs
-    assert html_response(conn, 200) =~ "Edit user"
+    assert html_response(conn, 200) =~ "Edit your"
   end
 
   test "deletes chosen resource", %{conn: conn} do
