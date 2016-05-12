@@ -14,7 +14,9 @@
   <tbody>
 <%= for search_agent <- @search_agents do %>
     <tr>
-      <td><%= search_agent.url %></td>
+      <td>
+        <%= link search_agent.url, to: search_agent.url, class: "btn btn-default btn-xs" %>
+      </td>
       <td><%= search_agent.user_id %></td>
 
       <td class="text-right">
