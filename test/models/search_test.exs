@@ -27,6 +27,11 @@ defmodule PageChangeNotifier.SearchTest do
     end
   end
 
+  test "return empty array on unsupported website url" do
+    results = Search.run("unsupported.url")
+    assert length(results) == 0
+  end
+
   test "assert valid url" do
     use_cassette "ebay_fahrrad" do
       results = Search.run(@ebay_url)

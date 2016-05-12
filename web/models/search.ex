@@ -4,15 +4,16 @@ defmodule PageChangeNotifier.Search do
   end
 
   def run(page_url) do
-    page_url |> get_page_html |> extract_results(page_url)
+    case extractor_for(page_url) do
+      { :no_extractor_defined, page_url } ->
+        []
+      extractor ->
+        get_page_html(page_url) |> extractor.extract_results
+    end
   end
 
   def get_page_html(page_url) do
     PageChangeNotifier.Webpage.get_body(page_url)
-  end
-
-  def extract_results(page_html, page_url) do
-    extractor_for(page_url).extract_results(page_html)
   end
 
   def extractor_for(page_url) do
