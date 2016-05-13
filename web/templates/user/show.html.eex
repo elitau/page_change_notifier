@@ -15,7 +15,7 @@
   <li>
     <strong>Telegram chat id:</strong>
     <%= @user.telegram_chat_id %>
-    <p>Get it with https://api.telegram.org/bot{bot_token}/getUpdates</p>
+    <p>Tell @neueZoneBot the command /chat_id and it will tell you the id.</p>
   </li>
 
   <li>
