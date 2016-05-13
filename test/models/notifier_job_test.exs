@@ -29,7 +29,7 @@ defmodule PageChangeNotifier.NotifierJobTest do
     use_cassette "ebay_fahrrad_and_yo" do
       user = Repo.insert! @user
       search_agent = Repo.insert!(Map.merge(@search_agent, %{"user_id": user.id}))
-      saved_result = Repo.insert!(Map.merge(@existing_result, %{search_agent_id: search_agent.id}))
+      Repo.insert!(Map.merge(@existing_result, %{search_agent_id: search_agent.id}))
       searches_with_results = NotifierJob.run #(@ebay_url)
       new_results = Enum.at(searches_with_results, 0).new_results
       new_urls = new_results |> Enum.map(fn(result) -> result.url end)
