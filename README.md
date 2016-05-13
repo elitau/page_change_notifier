@@ -17,7 +17,9 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 ## Deployment
 
+### Telegram
 Set up Telegram bot token with `heroku config:set TELEGRAM_BOT_TOKEN=fookhbar`
+Setup the webhook url with https://api.telegram.org/botTELEGRAM_BOT_TOKEN/setWebhook?url=YOUR_WEBHOOK_URL
 
 Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
 
