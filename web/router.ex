@@ -13,7 +13,6 @@ defmodule PageChangeNotifier.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
-    plug Plug.Parsers, parsers: [:urlencoded, :multipart]
   end
 
   scope "/", PageChangeNotifier do
