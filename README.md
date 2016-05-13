@@ -15,6 +15,10 @@ To start your Phoenix app:
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
+## Deployment
+
+Set up Telegram bot token with `heroku config:set TELEGRAM_BOT_TOKEN=fookhbar`
+
 Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
 
 ## Learn more

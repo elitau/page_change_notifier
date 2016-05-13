@@ -33,3 +33,6 @@ config :phoenix, :generators,
 config :airbrake,
   api_key: System.get_env("AIRBRAKE_API_KEY"),
   project_id: System.get_env("AIRBRAKE_PROJECT_ID")
+
+config :nadia,
+  token: System.get_env("TELEGRAM_BOT_TOKEN")

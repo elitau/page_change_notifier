@@ -21,6 +21,11 @@
   </div>
 
   <div class="form-group">
+    <%= label f, :telegram_chat_id, "Telegram chat id", class: "control-label" %>
+    <%= text_input f, :telegram_chat_id, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
     <%= label f, :email, "Email", class: "control-label" %>
     <%= text_input f, :email, class: "form-control" %>
   </div>

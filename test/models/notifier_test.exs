@@ -9,9 +9,16 @@ defmodule PageChangeNotifier.NotifierTest do
   end
 
   @user %{
-    name: "name",
-    yo_username: "yo_username",
-    email: "email"
+    name:             "name",
+    yo_username:      "yo_username",
+    email:            nil,
+    telegram_chat_id: nil
+  }
+  @telegram_user %{
+    name:             "telegram",
+    telegram_chat_id: 66456154,
+    yo_username:      nil,
+    email:            nil
   }
   @search_agent %{url: "search_url", user: @user}
   @new_result %PageChangeNotifier.Result{url: "new_result_url", title: "CHESINI Rennrad RH: 62cm, komplett Campagnolo (Bianchi)"}
@@ -21,6 +28,13 @@ defmodule PageChangeNotifier.NotifierTest do
     # searches = [%{user: @search_agent.user, results: @results}]
     use_cassette "yo_send_link" do
       PageChangeNotifier.Notifier.notify(@search_agent, @results)
+    end
+  end
+
+  test "notify per telegram" do
+    use_cassette "telegram_send_link" do
+      search_agent = %{url: "search_url", user: @telegram_user}
+      PageChangeNotifier.Notifier.notify(search_agent, @results)
     end
   end
 end

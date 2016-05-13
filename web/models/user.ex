@@ -4,13 +4,14 @@ defmodule PageChangeNotifier.User do
   schema "users" do
     field :username, :string
     field :yo_username, :string
+    field :telegram_chat_id, :integer
     field :email, :string
     has_many :search_agents, PageChangeNotifier.SearchAgent
     timestamps
   end
 
   @required_fields ~w(username)
-  @optional_fields ~w(email yo_username)
+  @optional_fields ~w(email yo_username telegram_chat_id)
 
   @doc """
   Creates a changeset based on the `model` and `params`.

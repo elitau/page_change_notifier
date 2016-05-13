@@ -1,0 +1,29 @@
+[
+  {
+    "request": {
+      "body": "chat_id=66456154&text=new_result_url",
+      "headers": [],
+      "method": "post",
+      "options": {
+        "recv_timeout": 5000
+      },
+      "request_body": "",
+      "url": "https://api.telegram.org/bot230113985:AAFcX1f4wKKe_JoobzGusj14PtDvlrKKXiQ/sendMessage"
+    },
+    "response": {
+      "body": "{\"ok\":true,\"result\":{\"message_id\":7,\"from\":{\"id\":230113985,\"first_name\":\"neueZoneBot\",\"username\":\"neueZoneBot\"},\"chat\":{\"id\":66456154,\"first_name\":\"Ede\",\"type\":\"private\"},\"date\":1463101325,\"text\":\"new_result_url\"}}",
+      "headers": {
+        "Server": "nginx/1.9.1",
+        "Date": "Fri, 13 May 2016 01:02:05 GMT",
+        "Content-Type": "application/json",
+        "Content-Length": "214",
+        "Connection": "keep-alive",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Strict-Transport-Security": "max-age=31536000; includeSubdomains"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

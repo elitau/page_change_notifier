@@ -1,6 +1,13 @@
 defmodule PageChangeNotifier.Mixfile do
   use Mix.Project
 
+  ###### HELP
+  # On adding deps:
+  # mix deps.clean --all
+  # mix deps.get
+  # mix deps.compile
+  #
+
   def project do
     [app: :page_change_notifier,
      version: "0.0.1",
@@ -20,7 +27,7 @@ defmodule PageChangeNotifier.Mixfile do
     [mod: {PageChangeNotifier, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger,
                     :phoenix_ecto, :postgrex, :mailgun, :floki,
-                    :airbrake_plug, :httpoison, :mix]]
+                    :airbrake_plug, :httpoison, :nadia, :mix]]
   end
 
   # Specifies which paths to compile per environment.
@@ -44,6 +51,7 @@ defmodule PageChangeNotifier.Mixfile do
       {:mailgun, "~> 0.1.1"},
       {:cowboy, "~> 1.0"},
       {:airbrake_plug, "~> 0.1.0"},
+      {:nadia, "~> 0.3"},
       {:airbrake, git: "https://github.com/elitau/airbrake-elixir.git", override: true}
     ]
   end
