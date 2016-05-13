@@ -13,6 +13,7 @@ defmodule PageChangeNotifier.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug Plug.Parsers, parsers: [:urlencoded, :multipart]
   end
 
   scope "/", PageChangeNotifier do
@@ -26,6 +27,11 @@ defmodule PageChangeNotifier.Router do
     resources "/results", ResultController
     resources "/users", UserController
     resources "/search_agents", SearchAgentController
+  end
+
+  scope "/telegram", PageChangeNotifier do
+    pipe_through :api
+    post "/webhook", TelegramController, :webhook
   end
 
   # Other scopes may use custom stacks.

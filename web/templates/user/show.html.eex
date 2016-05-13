@@ -13,6 +13,12 @@
   </li>
 
   <li>
+    <strong>Telegram chat id:</strong>
+    <%= @user.telegram_chat_id %>
+    <p>Get it with https://api.telegram.org/bot{bot_token}/getUpdates</p>
+  </li>
+
+  <li>
     <strong>Email:</strong>
     <%= @user.email %>
   </li>
