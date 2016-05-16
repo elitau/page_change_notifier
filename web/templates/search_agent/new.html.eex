@@ -1,6 +1,9 @@
 <h2>New search agent</h2>
+<p>Got to one of the supported websites, run the search and enter the URL of the search results below.</p>
 
-<h4>Supported websites</h4>
+<br>
+
+<h4>Supported websites with example links</h4>
 <ul>
   <li><a href="https://www.ebay-kleinanzeigen.de/s-zu-verschenken/koeln/c192l945">Ebay Kleinanzeigen</a></li>
   <li><a href="http://www.immobilienscout24.de/Suche/S-T/Wohnung-Miete/Nordrhein-Westfalen/Koeln/Ehrenfeld/-/-/EURO--500,00">Immobilienscout24</a></li>

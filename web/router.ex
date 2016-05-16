@@ -18,7 +18,7 @@ defmodule PageChangeNotifier.Router do
   scope "/", PageChangeNotifier do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
+    get "/", SearchAgentController, :index
     get "/login",  SessionController, :new
     post "/login", SessionController, :create
     get "/logout", SessionController, :delete

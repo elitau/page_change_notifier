@@ -16,7 +16,7 @@ defmodule PageChangeNotifier.SearchAgentControllerTest do
 
   test "lists users search_agents on index", %{conn: conn} do
     conn = get conn, search_agent_path(conn, :index)
-    assert html_response(conn, 200) =~ "Listing search agents"
+    assert html_response(conn, 200) =~ "search agents"
   end
 
   test "hides other users search_agents on index", %{conn: conn} do

@@ -1,4 +1,4 @@
-<h2>Listing search agents</h2>
+<h2>Your search agents</h2>
 
 <%= link "New search agent", to: search_agent_path(@conn, :new) %>
 
@@ -6,8 +6,6 @@
   <thead>
     <tr>
       <th>Url</th>
-      <th>User</th>
-
       <th></th>
     </tr>
   </thead>
@@ -15,11 +13,12 @@
 <%= for search_agent <- @search_agents do %>
     <tr>
       <td>
-        <%= link String.slice(search_agent.url, 0..80), to: search_agent.url, class: "btn btn-default btn-xs" %>
+        <%= link String.slice(search_agent.url, 0..70), to: search_agent.url, class: "btn btn-default btn-xs" %>
       </td>
 
       <td class="text-right">
         <%= link "Show", to: search_agent_path(@conn, :show, search_agent), class: "btn btn-default btn-xs" %>
+        <%= link "Test", to: search_path(@conn, :search, %{"q" => search_agent.url}), class: "btn btn-default btn-xs" %>
         <%= link "Edit", to: search_agent_path(@conn, :edit, search_agent), class: "btn btn-default btn-xs" %>
         <%= link "Delete", to: search_agent_path(@conn, :delete, search_agent), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
       </td>
