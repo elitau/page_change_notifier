@@ -6,7 +6,12 @@ defmodule PageChangeNotifier.Webpage do
   end
 
   def get_body(page_url) do
-    HTTPoison.start
-    HTTPoison.get!(page_url).body
+    try do
+      HTTPoison.start
+      HTTPoison.get!(page_url).body
+    rescue
+      e in HTTPoison.Error -> e
+      ""
+    end
   end
 end

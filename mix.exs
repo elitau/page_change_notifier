@@ -52,6 +52,7 @@ defmodule PageChangeNotifier.Mixfile do
       {:cowboy, "~> 1.0"},
       {:airbrake_plug, "~> 0.1.0"},
       {:nadia, "~> 0.3"},
+      # {:mock,                "~> 0.1.1",  only: :test},
       {:airbrake, git: "https://github.com/elitau/airbrake-elixir.git", override: true}
     ]
   end
