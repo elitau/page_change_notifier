@@ -5,6 +5,9 @@ defmodule PageChangeNotifier.SearchControllerTest do
 
   setup_all do
     ExVCR.Config.cassette_library_dir("test/fixtures/vcr_cassettes")
+  end
+
+  setup do
     user = Repo.insert! %PageChangeNotifier.User{ username: "luke" }
     conn = conn()
            |> put_private(:authenticated_current_user_id, user.id)
