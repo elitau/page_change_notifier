@@ -15,9 +15,8 @@
 <%= for search_agent <- @search_agents do %>
     <tr>
       <td>
-        <%= link search_agent.url, to: search_agent.url, class: "btn btn-default btn-xs" %>
+        <%= link String.slice(search_agent.url, 0..80), to: search_agent.url, class: "btn btn-default btn-xs" %>
       </td>
-      <td><%= search_agent.user_id %></td>
 
       <td class="text-right">
         <%= link "Show", to: search_agent_path(@conn, :show, search_agent), class: "btn btn-default btn-xs" %>
