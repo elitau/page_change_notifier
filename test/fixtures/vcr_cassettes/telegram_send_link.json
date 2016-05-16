@@ -8,7 +8,7 @@
         "recv_timeout": 5000
       },
       "request_body": "",
-      "url": "https://api.telegram.org/bot230113985:AAFcX1f4wKKe_JoobzGusj14PtDvlrKKXiQ/sendMessage"
+      "url": "https://api.telegram.org/botTEST_TOKEN/sendMessage"
     },
     "response": {
       "body": "{\"ok\":true,\"result\":{\"message_id\":7,\"from\":{\"id\":230113985,\"first_name\":\"neueZoneBot\",\"username\":\"neueZoneBot\"},\"chat\":{\"id\":66456154,\"first_name\":\"Ede\",\"type\":\"private\"},\"date\":1463101325,\"text\":\"new_result_url\"}}",

@@ -32,6 +32,9 @@ defmodule PageChangeNotifier.NotifierTest do
   end
 
   test "notify per telegram" do
+    unless Application.get_env(:nadia, :token) do
+      Application.put_env(:nadia, :token, "TEST_TOKEN")
+    end
     use_cassette "telegram_send_link" do
       search_agent = %{url: "search_url", user: @telegram_user}
       PageChangeNotifier.Notifier.notify(search_agent, @results)
