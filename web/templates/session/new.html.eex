@@ -20,3 +20,14 @@
     <%= submit "Login", class: "btn btn-primary" %>
   </div>
 <% end %>
+
+
+<h4>How to to register</h4>
+<p>
+  There is no password. Only the username is used to identify you. A new account is created if you choose an unpresent username (this is the registration).
+</p>
+
+<h4>How to login</h4>
+<p>
+  To login just use your previously chosen username.
+</p>
