@@ -1,5 +1,5 @@
 defmodule PageChangeNotifier.ResultTest do
-  use PageChangeNotifier.ModelCase
+  use PageChangeNotifier.DataCase
 
   alias PageChangeNotifier.Result
 

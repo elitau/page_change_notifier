@@ -1,5 +1,5 @@
 defmodule PageChangeNotifier.NotifierTest do
-  use PageChangeNotifier.ModelCase
+  use PageChangeNotifier.DataCase
   use ExUnit.Case
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
 
@@ -9,19 +9,22 @@ defmodule PageChangeNotifier.NotifierTest do
   end
 
   @user %{
-    name:             "name",
-    yo_username:      "yo_username",
-    email:            nil,
+    name: "name",
+    yo_username: "yo_username",
+    email: nil,
     telegram_chat_id: nil
   }
   @telegram_user %{
-    name:             "telegram",
-    telegram_chat_id: 66456154,
-    yo_username:      nil,
-    email:            nil
+    name: "telegram",
+    telegram_chat_id: 66_456_154,
+    yo_username: nil,
+    email: nil
   }
   @search_agent %{url: "search_url", user: @user}
-  @new_result %PageChangeNotifier.Result{url: "new_result_url", title: "CHESINI Rennrad RH: 62cm, komplett Campagnolo (Bianchi)"}
+  @new_result %PageChangeNotifier.Result{
+    url: "new_result_url",
+    title: "CHESINI Rennrad RH: 62cm, komplett Campagnolo (Bianchi)"
+  }
   @results [@new_result]
 
   test "notify per yo" do
@@ -35,6 +38,7 @@ defmodule PageChangeNotifier.NotifierTest do
     unless Application.get_env(:nadia, :token) do
       Application.put_env(:nadia, :token, "TEST_TOKEN")
     end
+
     use_cassette "telegram_send_link" do
       search_agent = %{url: "search_url", user: @telegram_user}
       PageChangeNotifier.Notifier.notify(search_agent, @results)

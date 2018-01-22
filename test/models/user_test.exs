@@ -1,5 +1,5 @@
 defmodule PageChangeNotifier.UserTest do
-  use PageChangeNotifier.ModelCase
+  use PageChangeNotifier.DataCase
 
   alias PageChangeNotifier.User
 

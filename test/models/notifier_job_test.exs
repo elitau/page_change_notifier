@@ -1,5 +1,5 @@
 defmodule PageChangeNotifier.NotifierJobTest do
-  use PageChangeNotifier.ModelCase
+  use PageChangeNotifier.DataCase
   use ExUnit.Case
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
 
@@ -11,9 +11,18 @@ defmodule PageChangeNotifier.NotifierJobTest do
   @search_agent %PageChangeNotifier.SearchAgent{url: @ebay_url, user_id: 23}
   @kalaydo_search_agent %PageChangeNotifier.SearchAgent{url: @kalaydo_url, user_id: 23}
   @new_result_url "http://www.ebay-kleinanzeigen.de/s-anzeige/silbernes-mountainbike/393097973-217-20670"
-  @existing_result %PageChangeNotifier.Result{url: @existing_result_url, title: "Fahrradrahmen pulverbeschichten Fahrrad Rahmen Pulverbeschichtung"}
-  @kalaydo_existing_result %PageChangeNotifier.Result{url: @first_kalaydo_element, title: "dunno title"}
-  @new_result %PageChangeNotifier.Result{url: @new_result_url, title: "CHESINI Rennrad RH: 62cm, komplett Campagnolo (Bianchi)"}
+  @existing_result %PageChangeNotifier.Result{
+    url: @existing_result_url,
+    title: "Fahrradrahmen pulverbeschichten Fahrrad Rahmen Pulverbeschichtung"
+  }
+  @kalaydo_existing_result %PageChangeNotifier.Result{
+    url: @first_kalaydo_element,
+    title: "dunno title"
+  }
+  @new_result %PageChangeNotifier.Result{
+    url: @new_result_url,
+    title: "CHESINI Rennrad RH: 62cm, komplett Campagnolo (Bianchi)"
+  }
   @user %PageChangeNotifier.User{
     username: "username",
     yo_username: "yo_username",
@@ -27,12 +36,13 @@ defmodule PageChangeNotifier.NotifierJobTest do
 
   test "remove existing results from current results" do
     use_cassette "ebay_fahrrad_and_yo" do
-      user = Repo.insert! @user
-      search_agent = Repo.insert!(Map.merge(@search_agent, %{"user_id": user.id}))
+      user = Repo.insert!(@user)
+      search_agent = Repo.insert!(Map.merge(@search_agent, %{user_id: user.id}))
       Repo.insert!(Map.merge(@existing_result, %{search_agent_id: search_agent.id}))
-      searches_with_results = NotifierJob.run #(@ebay_url)
+      # (@ebay_url)
+      searches_with_results = NotifierJob.run()
       new_results = Enum.at(searches_with_results, 0).new_results
-      new_urls = new_results |> Enum.map(fn(result) -> result.url end)
+      new_urls = new_results |> Enum.map(fn result -> result.url end)
       assert Enum.member?(new_urls, @new_result_url)
       assert !Enum.member?(new_urls, @existing_result_url)
     end
@@ -40,9 +50,9 @@ defmodule PageChangeNotifier.NotifierJobTest do
 
   test "save new results" do
     use_cassette "ebay_fahrrad_and_yo" do
-      user = Repo.insert! @user
+      user = Repo.insert!(@user)
       search_agent = Repo.insert!(Map.merge(@search_agent, %{user_id: user.id}))
-      NotifierJob.run
+      NotifierJob.run()
 
       result = Repo.get_by(PageChangeNotifier.Result, url: @new_result_url)
       assert result.id
@@ -52,9 +62,9 @@ defmodule PageChangeNotifier.NotifierJobTest do
 
   test "kalaydo results" do
     use_cassette "kalaydo_fahrrad_and_yo" do
-      user = Repo.insert! @user
+      user = Repo.insert!(@user)
       search_agent = Repo.insert!(Map.merge(@kalaydo_search_agent, %{user_id: user.id}))
-      searches_with_results = NotifierJob.run
+      searches_with_results = NotifierJob.run()
 
       result = Repo.get_by(PageChangeNotifier.Result, url: @first_kalaydo_element)
       assert result.id
@@ -77,6 +87,4 @@ defmodule PageChangeNotifier.NotifierJobTest do
   #     assert new_results == []
   #   end
   # end
-
-
 end

@@ -1,5 +1,6 @@
 defmodule PageChangeNotifier.KalaydoExtractorTest do
-  use PageChangeNotifier.ModelCase
+  use PageChangeNotifier.DataCase
+
   @kalaydo_url "http://www.kalaydo.de/kleinanzeigen/2/3/k/fahrrad/?LOCATION=250667010&DISTANCE=100"
   @first_kalaydo_element "http://www.kalaydo.de/kleinanzeigen/mountainbike/kinderfahrrad-mtb-26-zoll-zuendapp/a/83037515/"
 
@@ -16,22 +17,19 @@ defmodule PageChangeNotifier.KalaydoExtractorTest do
   test "extract url" do
     results = PageChangeNotifier.Extractor.Kalaydo.extract_results(fixture_html("kalaydo"))
     assert Enum.at(results, 0).url == @first_kalaydo_element
-    results |> Enum.map(
-      fn(result) ->
-        assert result.url =~ ~r/kleinanzeigen/
-      end
-    )
+
+    results
+    |> Enum.map(fn result ->
+      assert result.url =~ ~r/kleinanzeigen/
+    end)
   end
 
   def fixture_html(name) do
-    path = Path.join(app_root, "test/fixtures/#{name}_results.html")
+    path = Path.join(File.cwd!(), "test/fixtures/#{name}_results.html")
+
     case File.read(path) do
-      {:ok, body}      -> body
+      {:ok, body} -> body
       {:error, reason} -> {:error, reason}
     end
-  end
-
-  defp app_root do
-    Application.get_env(:page_change_notifier, PageChangeNotifier.Endpoint)[:root]
   end
 end

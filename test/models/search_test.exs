@@ -1,5 +1,5 @@
 defmodule PageChangeNotifier.SearchTest do
-  use PageChangeNotifier.ModelCase
+  use PageChangeNotifier.DataCase
   use ExUnit.Case
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
 
@@ -36,7 +36,7 @@ defmodule PageChangeNotifier.SearchTest do
     use_cassette "ebay_fahrrad" do
       results = Search.run(@ebay_url)
       {:ok, regexp} = Regex.compile(@valid_url_schema)
-      assert Enum.filter(results, fn(result) -> !(result.url =~ regexp) end) == []
+      assert Enum.filter(results, fn result -> !(result.url =~ regexp) end) == []
     end
   end
 end
