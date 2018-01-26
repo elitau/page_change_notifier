@@ -9,12 +9,13 @@ defmodule PageChangeNotifierWeb.TelegramController do
       id = params["message"]["chat"]["id"]
       text = params["message"]["text"]
       # from = params["message"]["from"]["first_name"]
+      Logger.info("TelegramController: Received message: #{text}")
 
       if text == "/chat_id" do
         Nadia.send_message(id, "Hello. Your chat id is #{id}")
       end
     end
 
-    render(conn, message: text)
+    render(conn, message: "{}")
   end
 end

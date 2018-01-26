@@ -27,7 +27,7 @@ defmodule PageChangeNotifierWeb.Router do
     resources("/search_agents", SearchAgentController)
   end
 
-  scope "/telegram", PageChangeNotifier do
+  scope "/telegram", PageChangeNotifierWeb do
     pipe_through(:api)
     post("/webhook", TelegramController, :webhook)
   end
