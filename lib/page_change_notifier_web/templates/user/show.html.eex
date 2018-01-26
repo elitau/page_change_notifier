@@ -26,4 +26,5 @@
 </ul>
 
 <%= link "Edit", to: user_path(@conn, :edit, @user) %>
+<br>
 <%= link "Back", to: search_agent_path(@conn, :index) %>
