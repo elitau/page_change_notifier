@@ -3,10 +3,12 @@ defmodule PageChangeNotifierWeb.TelegramController do
   require Logger
 
   def webhook(conn, params) do
+    text = ""
+
     if params["message"]["chat"] != nil do
       id = params["message"]["chat"]["id"]
       text = params["message"]["text"]
-      from = params["message"]["from"]["first_name"]
+      # from = params["message"]["from"]["first_name"]
 
       if text == "/chat_id" do
         Nadia.send_message(id, "Hello. Your chat id is #{id}")

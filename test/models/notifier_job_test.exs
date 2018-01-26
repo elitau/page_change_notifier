@@ -15,14 +15,14 @@ defmodule PageChangeNotifier.NotifierJobTest do
     url: @existing_result_url,
     title: "Fahrradrahmen pulverbeschichten Fahrrad Rahmen Pulverbeschichtung"
   }
-  @kalaydo_existing_result %PageChangeNotifier.Result{
-    url: @first_kalaydo_element,
-    title: "dunno title"
-  }
-  @new_result %PageChangeNotifier.Result{
-    url: @new_result_url,
-    title: "CHESINI Rennrad RH: 62cm, komplett Campagnolo (Bianchi)"
-  }
+  # @kalaydo_existing_result %PageChangeNotifier.Result{
+  #   url: @first_kalaydo_element,
+  #   title: "dunno title"
+  # }
+  # @new_result %PageChangeNotifier.Result{
+  #   url: @new_result_url,
+  #   title: "CHESINI Rennrad RH: 62cm, komplett Campagnolo (Bianchi)"
+  # }
   @user %PageChangeNotifier.User{
     username: "username",
     yo_username: "yo_username",

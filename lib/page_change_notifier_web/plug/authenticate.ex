@@ -5,7 +5,7 @@ defmodule PageChangeNotifierWeb.Plug.Authenticate do
 
   def init(default), do: default
 
-  def call(conn, default) do
+  def call(conn, _default) do
     case conn |> current_user_id do
       nil ->
         conn

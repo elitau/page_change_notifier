@@ -5,7 +5,7 @@ defmodule PageChangeNotifier.Extractor do
     end
 
     def to_results(html_elements) do
-      html_elements |> Enum.map(fn(html_element) -> to_result(html_element) end)
+      html_elements |> Enum.map(fn html_element -> to_result(html_element) end)
     end
 
     def to_result({_, _, titles} = result) do
@@ -31,11 +31,11 @@ defmodule PageChangeNotifier.Extractor do
     end
 
     def to_results(html_elements) do
-      html_elements |> filter |> Enum.map(fn(html_element) -> to_result(html_element) end)
+      html_elements |> filter |> Enum.map(fn html_element -> to_result(html_element) end)
     end
 
     defp filter(html_elements) do
-      html_elements |> Enum.filter(fn(html_element) -> extract_href(html_element) != nil end)
+      html_elements |> Enum.filter(fn html_element -> extract_href(html_element) != nil end)
     end
 
     def to_result(html_element) do
@@ -69,11 +69,11 @@ defmodule PageChangeNotifier.Extractor do
     end
 
     def to_results(html_elements) do
-      html_elements |> filter |> Enum.map(fn(html_element) -> to_result(html_element) end)
+      html_elements |> filter |> Enum.map(fn html_element -> to_result(html_element) end)
     end
 
     defp filter(html_elements) do
-      html_elements |> Enum.filter(fn(html_element) -> extract_href(html_element) != nil end)
+      html_elements |> Enum.filter(fn html_element -> extract_href(html_element) != nil end)
     end
 
     def to_result(html_element) do
@@ -95,22 +95,25 @@ defmodule PageChangeNotifier.Extractor do
     end
   end
 
-  @ebay_schema Regex.compile("")
+  # @ebay_schema Regex.compile("")
 
   def for(page_url) do
     cond do
       matches(~r/ebay/, page_url) ->
         PageChangeNotifier.Extractor.EbayKleinanzeigen
+
       matches(~r/kalaydo/, page_url) ->
         PageChangeNotifier.Extractor.Kalaydo
+
       matches(~r/immobilienscout/, page_url) ->
         PageChangeNotifier.Extractor.Immoscout
+
       true ->
-        { :no_extractor_defined, page_url }
+        {:no_extractor_defined, page_url}
     end
   end
 
   def matches(regexp, page_url) do
-    Regex.run regexp, page_url
+    Regex.run(regexp, page_url)
   end
 end
