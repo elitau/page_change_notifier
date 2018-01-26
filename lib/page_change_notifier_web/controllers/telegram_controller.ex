@@ -13,6 +13,8 @@ defmodule PageChangeNotifierWeb.TelegramController do
 
       if text == "/chat_id" do
         Nadia.send_message(id, "Hello. Your chat id is #{id}")
+      else
+        Nadia.send_message(id, text)
       end
     end
 
