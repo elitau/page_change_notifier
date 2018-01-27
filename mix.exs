@@ -36,7 +36,7 @@ defmodule PageChangeNotifier.Mixfile do
       {:phoenix, "~> 1.3.0"},
       {:phoenix_pubsub, "~> 1.0"},
       {:phoenix_ecto, "~> 3.2"},
-      {:postgrex, ">= 0.0.0"},
+      {:postgrex, "~> 0.13"},
       {:phoenix_html, "~> 2.10"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
@@ -45,7 +45,8 @@ defmodule PageChangeNotifier.Mixfile do
       {:exvcr, "~> 0.9"},
       {:floki, "~> 0.19"},
       {:airbrake_plug, "~> 0.1"},
-      {:nadia, "~> 0.4"}
+      {:nadia, "~> 0.4"},
+      {:wallaby, "~> 0.19"}
     ]
   end
 
