@@ -10,12 +10,21 @@ defmodule PageChangeNotifier.ImmoscoutExtractorTest do
   end
 
   test "extract elements" do
-    elements = PageChangeNotifier.Extractor.Immoscout.to_elements(fixture_html("immoscout"))
-    assert {"li", _, _} = Enum.at(elements, 0)
+    first_element =
+      "immoscout_results"
+      |> fixture_html()
+      |> PageChangeNotifier.Extractor.Immoscout.to_elements()
+      |> Enum.at(0)
+
+    assert {"li", _, _} = first_element
   end
 
   test "extract url" do
-    results = PageChangeNotifier.Extractor.Immoscout.extract_results(fixture_html("immoscout"))
+    results =
+      "immoscout_results"
+      |> fixture_html()
+      |> PageChangeNotifier.Extractor.Immoscout.extract_results()
+
     assert Enum.at(results, 0).url == @first_immoscout_element
 
     results
@@ -24,8 +33,18 @@ defmodule PageChangeNotifier.ImmoscoutExtractorTest do
     end)
   end
 
+  test "finds all entries" do
+    results_count =
+      "immoscout_results_2018_06-09"
+      |> fixture_html()
+      |> PageChangeNotifier.Extractor.Immoscout.extract_results()
+      |> length
+
+    assert results_count == 20
+  end
+
   def fixture_html(name) do
-    path = Path.join(File.cwd!(), "test/fixtures/#{name}_results.html")
+    path = Path.join(File.cwd!(), "test/fixtures/#{name}.html")
 
     case File.read(path) do
       {:ok, body} -> body
