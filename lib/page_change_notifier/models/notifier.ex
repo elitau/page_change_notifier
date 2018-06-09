@@ -1,4 +1,6 @@
 defmodule PageChangeNotifier.Notifier do
+  alias PageChangeNotifier.TelegramBot
+
   def notify(_, []) do
     # do nothing
   end
@@ -26,6 +28,6 @@ defmodule PageChangeNotifier.Notifier do
   end
 
   def send_telegram_message(chat_id, new_results) do
-    new_results |> Enum.map(fn result -> Nadia.send_message(chat_id, result.url) end)
+    new_results |> Enum.map(fn result -> TelegramBot.send_message(chat_id, result.url) end)
   end
 end
