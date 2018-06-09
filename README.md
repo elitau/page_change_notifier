@@ -18,6 +18,9 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 ## Deployment
 `git push heroku master`
 
+### Background task
+Run `mix page_change_notifier.notify` as often as you want to be notified.
+
 ### Telegram
 Set up Telegram bot token with `heroku config:set TELEGRAM_BOT_TOKEN=fookhbar`
 Setup the webhook url with https://api.telegram.org/botTELEGRAM_BOT_TOKEN/setWebhook?url=YOUR_WEBHOOK_URL
