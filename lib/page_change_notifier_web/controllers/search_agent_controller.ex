@@ -42,7 +42,9 @@ defmodule PageChangeNotifierWeb.SearchAgentController do
   def show(conn, %{"id" => id}) do
     search_agent =
       Repo.get!(SearchAgent, id)
-      |> PageChangeNotifier.Repo.preload(results: from(r in Result, order_by: r.inserted_at))
+      |> PageChangeNotifier.Repo.preload(
+        results: from(r in Result, order_by: [desc: r.inserted_at])
+      )
 
     render(conn, "show.html", search_agent: search_agent, new_results: search_agent.results)
   end
