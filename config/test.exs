@@ -9,6 +9,7 @@ config :page_change_notifier, PageChangeNotifierWeb.Endpoint,
 # Print only warnings and errors during test
 config :logger, level: :warn
 
+config :wallaby, driver: Wallaby.Experimental.Chrome
 # Configure your database
 config :page_change_notifier, PageChangeNotifier.Repo,
   adapter: Ecto.Adapters.Postgres,
