@@ -27,6 +27,7 @@ config :airbrake,
   project_id: System.get_env("AIRBRAKE_PROJECT_ID")
 
 config :nadia, token: System.get_env("TELEGRAM_BOT_TOKEN")
+config :wallaby, driver: Wallaby.Experimental.Chrome
 
 config :page_change_notifier, :immoscout_message_email, System.get_env("IMMOSCOUT_MESSAGE_EMAIL")
 
