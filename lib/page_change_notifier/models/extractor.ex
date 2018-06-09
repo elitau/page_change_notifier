@@ -95,6 +95,54 @@ defmodule PageChangeNotifier.Extractor do
     end
   end
 
+  defmodule Yourimmo do
+    @element_css_path ".ci-search-results>div"
+
+    def extract_results(page_html) do
+      page_html |> to_elements |> to_results
+    end
+
+    def to_elements(page_html) do
+      page_html |> Floki.find(@element_css_path)
+    end
+
+    def to_results(html_elements) do
+      html_elements |> filter |> Enum.map(fn html_element -> to_result(html_element) end)
+    end
+
+    defp filter(html_elements) do
+      html_elements |> Enum.filter(&include?/1)
+    end
+
+    def to_result(html_element) do
+      path = html_element |> extract_href |> to_path
+      %PageChangeNotifier.Result{url: path, title: path}
+    end
+
+    def include?(html_element) do
+      extract_href(html_element) != nil && !includes_immoscout?(html_element)
+    end
+
+    defp includes_immoscout?(html_element) do
+      html_element
+      |> Floki.text()
+      |> String.contains?("immobilienscout24")
+    end
+
+    defp extract_href(html_element) do
+      hrefs = html_element |> Floki.find("a.js-item-title-link") |> Floki.attribute("href")
+      Enum.at(hrefs, 0)
+    end
+
+    defp to_path(element_href) do
+      URI.parse(element_href).path |> prepend_domain
+    end
+
+    def prepend_domain(path) do
+      "https://www.yourimmo.de" <> path
+    end
+  end
+
   # @ebay_schema Regex.compile("")
 
   def for(page_url) do
@@ -107,6 +155,9 @@ defmodule PageChangeNotifier.Extractor do
 
       matches(~r/immobilienscout/, page_url) ->
         PageChangeNotifier.Extractor.Immoscout
+
+      matches(~r/yourimmo/, page_url) ->
+        PageChangeNotifier.Extractor.Yourimmo
 
       true ->
         {:no_extractor_defined, page_url}
