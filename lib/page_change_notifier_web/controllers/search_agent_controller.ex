@@ -1,8 +1,9 @@
 defmodule PageChangeNotifierWeb.SearchAgentController do
   use PageChangeNotifierWeb, :controller
 
-  alias PageChangeNotifier.SearchAgent
+  alias PageChangeNotifier.{SearchAgent, Result}
   alias PageChangeNotifier.Repo
+  import Ecto.Query, only: [from: 2]
 
   plug(PageChangeNotifierWeb.Plug.Authenticate)
   plug(:scrub_params, "search_agent" when action in [:create, :update])
@@ -39,7 +40,10 @@ defmodule PageChangeNotifierWeb.SearchAgentController do
   end
 
   def show(conn, %{"id" => id}) do
-    search_agent = Repo.get!(SearchAgent, id) |> PageChangeNotifier.Repo.preload(:results)
+    search_agent =
+      Repo.get!(SearchAgent, id)
+      |> PageChangeNotifier.Repo.preload(results: from(r in Result, order_by: r.inserted_at))
+
     render(conn, "show.html", search_agent: search_agent, new_results: search_agent.results)
   end
 
