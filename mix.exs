@@ -46,7 +46,7 @@ defmodule PageChangeNotifier.Mixfile do
       {:floki, "~> 0.19"},
       {:airbrake_plug, "~> 0.1"},
       {:nadia, "~> 0.4"},
-      {:wallaby, "~> 0.19", runtime: false}
+      {:wallaby, "~> 0.19"}
     ]
   end
 
