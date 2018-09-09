@@ -1,7 +1,8 @@
 defmodule PageChangeNotifier.Bot do
   alias PageChangeNotifier.User
+  alias PageChangeNotifier.Repo
 
-  def message_received(%{"text" => "http://www.immobilienscout24.de" <> _path = url} = message) do
+  def message_received(%{"text" => "https://www.immobilienscout24.de" <> _path = url} = message) do
     user = user(message)
 
     case PageChangeNotifier.Repo.get_by(
