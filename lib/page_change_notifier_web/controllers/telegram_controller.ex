@@ -1,6 +1,7 @@
 defmodule PageChangeNotifierWeb.TelegramController do
   use PageChangeNotifierWeb, :controller
   require Logger
+  alias PageChangeNotifier.Bot
 
   defmodule TelegramNotConfigured do
     defexception [:message]
@@ -14,16 +15,14 @@ defmodule PageChangeNotifierWeb.TelegramController do
     end
 
     if params["message"]["chat"] != nil do
-      id = params["message"]["chat"]["id"]
+      chat_id = params["message"]["chat"]["id"]
       text = params["message"]["text"]
       # from = params["message"]["from"]["first_name"]
+      # user = Bot.user(chat_id)
       Logger.info("TelegramController: Received message: #{text}")
 
-      if text == "/chat_id" do
-        Nadia.send_message(id, "Hello. Your chat id is #{id}")
-      else
-        Nadia.send_message(id, text)
-      end
+      response = Bot.message_received(params["message"])
+      Nadia.send_message(chat_id, response)
     end
 
     render(conn, message: "{}")
