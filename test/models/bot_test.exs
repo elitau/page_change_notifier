@@ -14,6 +14,11 @@ defmodule PageChangeNotifier.BotTest do
     test "with immoscrout host" do
       assert "Search for " <> @immoscout_url <> " added" = Bot.message_received(@message)
     end
+
+    test "adds search agent for user" do
+      Bot.message_received(@message)
+      assert PageChangeNotifier.Repo.get_by(PageChangeNotifier.SearchAgent, url: @immoscout_url)
+    end
   end
 
   describe "user management" do
