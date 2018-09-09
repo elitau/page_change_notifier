@@ -29,7 +29,7 @@ defmodule PageChangeNotifier.Bot do
     |> Enum.join()
   end
 
-  def message_received(%{"text" => _text}) do
+  def message_received(_message) do
     ~s{Hi! I can search for things and notify you. Copy the URL of the search results page and send it to me.}
   end
 

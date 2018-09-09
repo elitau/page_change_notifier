@@ -10,6 +10,10 @@ defmodule PageChangeNotifier.BotTest do
              @message |> Map.merge(%{"text" => "hi"}) |> Bot.message_received()
   end
 
+  test "message without text" do
+    assert @message |> Map.delete("text") |> Bot.message_received()
+  end
+
   describe "receives a url" do
     test "with immoscrout host" do
       assert "Search for " <> @immoscout_url <> " added." <> _info =
