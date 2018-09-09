@@ -8,7 +8,7 @@ defmodule PageChangeNotifierWeb.TelegramController do
   end
 
   def webhook(conn, params) do
-    text = ""
+    # text = ""
 
     unless Application.get_env(:nadia, :token) do
       raise TelegramNotConfigured, "set TELEGRAM_BOT_TOKEN"
@@ -16,10 +16,10 @@ defmodule PageChangeNotifierWeb.TelegramController do
 
     if params["message"]["chat"] != nil do
       chat_id = params["message"]["chat"]["id"]
-      text = params["message"]["text"]
+      # text = params["message"]["text"]
       # from = params["message"]["from"]["first_name"]
       # user = Bot.user(chat_id)
-      Logger.info("TelegramController: Received message: #{text}")
+      Logger.info("TelegramController: Received message: #{params["message"] |> inspect}")
 
       response = Bot.message_received(params["message"])
       Nadia.send_message(chat_id, response)
