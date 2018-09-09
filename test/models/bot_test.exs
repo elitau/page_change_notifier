@@ -2,7 +2,7 @@ defmodule PageChangeNotifier.BotTest do
   use PageChangeNotifier.DataCase
   alias PageChangeNotifier.Bot
 
-  @immoscout_url "http://www.immobilienscout24.de/Suche/S-T/Wohnung-Miete/Nordrhein-Westfalen/Koeln/Ehrenfeld/-/-/EURO--500,00"
+  @immoscout_url "https://www.immobilienscout24.de/Suche/S-T/Wohnung-Miete/Nordrhein-Westfalen/Koeln/Ehrenfeld/-/-/EURO--500,00"
   @message %{"chat" => %{"id" => 23}, "text" => @immoscout_url}
 
   test "Hi" do
@@ -12,12 +12,27 @@ defmodule PageChangeNotifier.BotTest do
 
   describe "receives a url" do
     test "with immoscrout host" do
-      assert "Search for " <> @immoscout_url <> " added" = Bot.message_received(@message)
+      assert "Search for " <> @immoscout_url <> " added." <> _info =
+               Bot.message_received(@message)
     end
 
     test "adds search agent for user" do
       Bot.message_received(@message)
       assert PageChangeNotifier.Repo.get_by(PageChangeNotifier.SearchAgent, url: @immoscout_url)
+    end
+  end
+
+  describe "list search agents" do
+    test "list" do
+      user = Repo.insert!(%PageChangeNotifier.User{username: "bot_user", telegram_chat_id: 23})
+
+      PageChangeNotifier.Repo.insert!(%PageChangeNotifier.SearchAgent{
+        url: "some_url",
+        user_id: user.id
+      })
+
+      assert "* " <> "some_url" =
+               @message |> Map.merge(%{"text" => "list"}) |> Bot.message_received()
     end
   end
 

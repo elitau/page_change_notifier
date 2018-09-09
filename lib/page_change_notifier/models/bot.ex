@@ -16,11 +16,17 @@ defmodule PageChangeNotifier.Bot do
           user_id: user.id
         })
 
-        "Search for " <> url <> " added"
+        "Search for " <> url <> " added."
 
       _search_agent ->
         "Search for " <> url <> " was already added."
-    end
+    end <> "I will post new results to this chat."
+  end
+
+  def message_received(%{"text" => "list"} = message) do
+    Repo.all(Ecto.assoc(user(message), :search_agents))
+    |> Enum.map(&("* " <> &1.url))
+    |> Enum.join()
   end
 
   def message_received(%{"text" => _text}) do
