@@ -3,11 +3,17 @@ defmodule PageChangeNotifier.BotTest do
   alias PageChangeNotifier.Bot
 
   @immoscout_url "http://www.immobilienscout24.de/Suche/S-T/Wohnung-Miete/Nordrhein-Westfalen/Koeln/Ehrenfeld/-/-/EURO--500,00"
-  @message %{"chat" => %{"id" => 23}}
+  @message %{"chat" => %{"id" => 23}, "text" => @immoscout_url}
 
   test "Hi" do
     assert ~s{Hi! I can search for things and notify you. Copy the URL of the search results page and send it to me.} ==
-             Bot.message_received("Hi")
+             @message |> Map.merge(%{"text" => "hi"}) |> Bot.message_received()
+  end
+
+  describe "receives a url" do
+    test "with immoscrout host" do
+      assert "Search for " <> @immoscout_url <> " added" = Bot.message_received(@message)
+    end
   end
 
   describe "user management" do

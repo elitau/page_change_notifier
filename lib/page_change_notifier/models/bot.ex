@@ -1,7 +1,20 @@
 defmodule PageChangeNotifier.Bot do
   alias PageChangeNotifier.User
 
-  def message_received(_message) do
+  def message_received(%{"text" => text}) do
+    text |> reply
+  end
+
+  def reply("http://www.immobilienscout24.de" <> _path = url) do
+    "Search for " <> url <> " added"
+
+    # case do
+    #   () ->
+    #     nil
+    # end
+  end
+
+  def reply(_message) do
     ~s{Hi! I can search for things and notify you. Copy the URL of the search results page and send it to me.}
   end
 
