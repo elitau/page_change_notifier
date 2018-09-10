@@ -3,12 +3,11 @@ defmodule PageChangeNotifier.Repo.Migrations.CreateUser do
 
   def change do
     create table(:users) do
-      add :name, :string
-      add :yo_username, :string
-      add :email, :string
+      add(:name, :string)
+      add(:yo_username, :string)
+      add(:email, :string)
 
       timestamps
     end
-
   end
 end

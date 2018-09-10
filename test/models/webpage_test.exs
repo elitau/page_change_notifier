@@ -3,7 +3,6 @@ defmodule PageChangeNotifier.WebpageTest do
   use HTTPoison.Base
   # import Mock
 
-
   # test_with_mock "return empty string on failure", HTTPoison,
   #   [:passthrough], [get!: fn(_url) -> :meck.exception(HTTPoison.Error) end] do
   #   assert PageChangeNotifier.Webpage.get_body("http://example.com") == ""

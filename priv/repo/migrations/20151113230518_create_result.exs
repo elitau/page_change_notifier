@@ -3,11 +3,10 @@ defmodule PageChangeNotifier.Repo.Migrations.CreateResult do
 
   def change do
     create table(:results) do
-      add :url, :string
-      add :title, :string
+      add(:url, :string)
+      add(:title, :string)
 
       timestamps
     end
-
   end
 end

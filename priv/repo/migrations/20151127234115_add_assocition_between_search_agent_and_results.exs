@@ -3,7 +3,7 @@ defmodule PageChangeNotifier.Repo.Migrations.AddAssocitionBetweenSearchAgentAndR
 
   def change do
     alter table(:results) do
-      add :search_agent_id, references(:search_agents)
+      add(:search_agent_id, references(:search_agents))
     end
   end
 end

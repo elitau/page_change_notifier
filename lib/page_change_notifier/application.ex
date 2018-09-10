@@ -11,7 +11,7 @@ defmodule PageChangeNotifier.Application do
       # Start the Ecto repository
       supervisor(PageChangeNotifier.Repo, []),
       # Start the endpoint when the application starts
-      supervisor(PageChangeNotifierWeb.Endpoint, []),
+      supervisor(PageChangeNotifierWeb.Endpoint, [])
       # Start your own worker by calling: PageChangeNotifier.Worker.start_link(arg1, arg2, arg3)
       # worker(PageChangeNotifier.Worker, [arg1, arg2, arg3]),
     ]
