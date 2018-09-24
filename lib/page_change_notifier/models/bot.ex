@@ -5,13 +5,13 @@ defmodule PageChangeNotifier.Bot do
   def message_received(%{"text" => "https://www.immobilienscout24.de" <> _path = url} = message) do
     user = user(message)
 
-    case PageChangeNotifier.Repo.get_by(
+    case Repo.get_by(
            PageChangeNotifier.SearchAgent,
            url: url,
            user_id: user.id
          ) do
       nil ->
-        PageChangeNotifier.Repo.insert!(%PageChangeNotifier.SearchAgent{
+        Repo.insert!(%PageChangeNotifier.SearchAgent{
           url: url,
           user_id: user.id
         })
@@ -36,9 +36,9 @@ defmodule PageChangeNotifier.Bot do
   def user(message) do
     chat_id = message["chat"]["id"]
 
-    case PageChangeNotifier.Repo.get_by(User, telegram_chat_id: chat_id) do
+    case Repo.get_by(User, telegram_chat_id: chat_id) do
       nil ->
-        PageChangeNotifier.Repo.insert!(%PageChangeNotifier.User{
+        Repo.insert!(%User{
           username: "bot_user_" <> (chat_id |> to_string()),
           telegram_chat_id: chat_id
         })

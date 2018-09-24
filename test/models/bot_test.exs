@@ -1,6 +1,6 @@
 defmodule PageChangeNotifier.BotTest do
   use PageChangeNotifier.DataCase
-  alias PageChangeNotifier.Bot
+  alias PageChangeNotifier.{Bot, User, SearchAgent}
 
   @immoscout_url "https://www.immobilienscout24.de/Suche/S-T/Wohnung-Miete/Nordrhein-Westfalen/Koeln/Ehrenfeld/-/-/EURO--500,00"
   @message %{"chat" => %{"id" => 23}, "text" => @immoscout_url}
@@ -22,15 +22,15 @@ defmodule PageChangeNotifier.BotTest do
 
     test "adds search agent for user" do
       Bot.message_received(@message)
-      assert PageChangeNotifier.Repo.get_by(PageChangeNotifier.SearchAgent, url: @immoscout_url)
+      assert PageChangeNotifier.Repo.get_by!(SearchAgent, url: @immoscout_url)
     end
   end
 
   describe "list search agents" do
     test "list" do
-      user = Repo.insert!(%PageChangeNotifier.User{username: "bot_user", telegram_chat_id: 23})
+      user = Repo.insert!(%User{username: "bot_user", telegram_chat_id: 23})
 
-      PageChangeNotifier.Repo.insert!(%PageChangeNotifier.SearchAgent{
+      PageChangeNotifier.Repo.insert!(%SearchAgent{
         url: "some_url",
         user_id: user.id
       })
@@ -47,7 +47,8 @@ defmodule PageChangeNotifier.BotTest do
     end
 
     test "uses existing bot user if chat id is known" do
-      Repo.insert!(%PageChangeNotifier.User{username: "bot_user", telegram_chat_id: 23})
+      Repo.insert!(%User{username: "bot_user", telegram_chat_id: 23})
+      assert %User{username: "bot_user", telegram_chat_id: 23} = Bot.user(@message)
     end
   end
 end
