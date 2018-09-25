@@ -1,20 +1,12 @@
 defmodule PageChangeNotifier.Bot do
-  alias PageChangeNotifier.User
-  alias PageChangeNotifier.Repo
+  alias PageChangeNotifier.{User, Repo, SearchAgent}
 
   def message_received(%{"text" => "https://www.immobilienscout24.de" <> _path = url} = message) do
     user = user(message)
 
-    case Repo.get_by(
-           PageChangeNotifier.SearchAgent,
-           url: url,
-           user_id: user.id
-         ) do
+    case Repo.get_by(SearchAgent, url: url, user_id: user.id) do
       nil ->
-        Repo.insert!(%PageChangeNotifier.SearchAgent{
-          url: url,
-          user_id: user.id
-        })
+        Repo.insert!(%SearchAgent{url: url, user_id: user.id})
 
         "Search for " <> url <> " added."
 
