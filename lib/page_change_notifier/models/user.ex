@@ -6,7 +6,7 @@ defmodule PageChangeNotifier.User do
   schema "users" do
     field(:username, :string)
     field(:yo_username, :string)
-    field(:telegram_chat_id, :integer)
+    field(:telegram_chat_id, :string)
     field(:email, :string)
     has_many(:search_agents, PageChangeNotifier.SearchAgent)
     timestamps()
