@@ -14,12 +14,13 @@ defmodule PageChangeNotifierWeb.TelegramController do
       raise TelegramNotConfigured, "set TELEGRAM_BOT_TOKEN"
     end
 
+    Logger.info("TelegramController: Received message: #{params |> inspect}")
+
     if params["message"]["chat"] != nil do
       chat_id = params["message"]["chat"]["id"]
       # text = params["message"]["text"]
       # from = params["message"]["from"]["first_name"]
       # user = Bot.user(chat_id)
-      Logger.info("TelegramController: Received message: #{params["message"] |> inspect}")
 
       response = Bot.message_received(params["message"])
       Logger.info("Sending message " <> response <> " to " <> inspect(chat_id))
