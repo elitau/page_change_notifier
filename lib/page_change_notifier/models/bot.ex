@@ -11,13 +11,13 @@ defmodule PageChangeNotifier.Bot do
 
       %SearchAgent{} ->
         "Search for " <> url <> " was already added."
-    end <> "I will post new results to this chat."
+    end <> " I will post new results to this chat."
   end
 
   def message_received(%{"text" => "/list"} = message) do
     Repo.all(Ecto.assoc(user(message), :search_agents))
     |> Enum.map(&("* " <> &1.url))
-    |> Enum.join()
+    |> Enum.join("\n")
   end
 
   def message_received(%{"text" => "/help"}) do
@@ -25,21 +25,27 @@ defmodule PageChangeNotifier.Bot do
     @neueZoneBot is a search bot that runs searches every 10 minutes and sends new results to this chat.
 
     Send me one of the following commands:
-    /add URL    => Adds a new search
+    /add URL    => Adds a new search (Sites I can search: immobilienscout24.de, ebay-kleinanzeigen.de)
     /remove URL => Remove a search (not implemented yet)
     /list       => List all active searches
     /help       => This help message
+    /addhelp    => Explanation on how to add a search
+    """
+  end
+
+  def message_received(%{"text" => "/addhelp"}) do
+    """
+       To add a search go to one of the supported sites(immobilienscout24.de,
+       ebay-kleinanzeigen.de) and search for the thing you want. Then copy the
+       URL of the search results. This is the URL you need to give me with
+       /add URL
     """
   end
 
   def message_received(_message) do
     """
     Hi! I can search for things and notify you.
-    Copy the URL of the search results page and send it to me with a prepended /add.
-    Here is an example of a message I understand:
-    /add http://www.immobilienscout24.de/Suche/S-T/Wohnung-Miete/Nordrhein-Westfalen/Koeln/Ehrenfeld/-/-/EURO--500,00
-
-    Say /help for a complete list of allowed commands.
+    Say /help for a complete list of commands that I understand.
     """
   end
 
