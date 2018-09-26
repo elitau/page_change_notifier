@@ -47,8 +47,8 @@ defmodule PageChangeNotifier.BotTest do
     end
 
     test "uses existing bot user if chat id is known" do
-      Repo.insert!(%User{username: "bot_user", telegram_chat_id: "23"})
-      assert %User{username: "bot_user", telegram_chat_id: "23"} = Bot.user(@message)
+      existing_user = Repo.insert!(%User{username: "bot_user", telegram_chat_id: "23"})
+      assert existing_user == Bot.user(@message)
     end
   end
 end

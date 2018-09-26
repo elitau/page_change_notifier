@@ -7,10 +7,9 @@ defmodule PageChangeNotifier.Bot do
     case Repo.get_by(SearchAgent, url: url, user_id: user.id) do
       nil ->
         Repo.insert!(%SearchAgent{url: url, user_id: user.id})
-
         "Search for " <> url <> " added."
 
-      _search_agent ->
+      %SearchAgent{} ->
         "Search for " <> url <> " was already added."
     end <> "I will post new results to this chat."
   end
@@ -26,17 +25,25 @@ defmodule PageChangeNotifier.Bot do
   end
 
   def user(message) do
-    chat_id = message["chat"]["id"]
+    chat_id = message["chat"]["id"] |> to_string()
 
     case Repo.get_by(User, telegram_chat_id: chat_id) do
       nil ->
-        Repo.insert!(%User{
-          username: "bot_user_" <> (chat_id |> to_string()),
-          telegram_chat_id: chat_id
-        })
+        chat_id |> create_bot_user()
 
-      user = %User{} ->
+      %User{} = user ->
         user
     end
+  end
+
+  def create_bot_user(chat_id) do
+    Repo.insert!(%User{
+      username: chat_id |> bot_username(),
+      telegram_chat_id: chat_id
+    })
+  end
+
+  def bot_username(chat_id) do
+    "bot_user_" <> chat_id
   end
 end
