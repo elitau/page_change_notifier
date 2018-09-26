@@ -21,9 +21,9 @@ defmodule PageChangeNotifierWeb.TelegramController do
       # text = params["message"]["text"]
       # from = params["message"]["from"]["first_name"]
       # user = Bot.user(chat_id)
-
+      Logger.info("Chat_id:" <> chat_id)
       response = Bot.message_received(params["message"])
-      Logger.info("Sending message " <> response <> " to " <> inspect(chat_id))
+      Logger.info("Sending message " <> inspect(response) <> " to " <> inspect(chat_id))
       Nadia.send_message(chat_id, response)
     end
 
