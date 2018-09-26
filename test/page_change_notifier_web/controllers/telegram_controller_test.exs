@@ -7,7 +7,7 @@ defmodule PageChangeNotifier.TelegramControllerTest do
   end
 
   test "POST /telegram/webhook", %{conn: conn} do
-    params = %{"message" => %{"chat" => %{"id" => "23"}, "text" => "message content"}}
+    params = %{"message" => %{"chat" => %{"id" => 23}, "text" => "message content"}}
 
     conn = post(conn, "/telegram/webhook", params)
     assert json_response(conn, 200) == "{}"
@@ -16,7 +16,7 @@ defmodule PageChangeNotifier.TelegramControllerTest do
   test "POST /telegram/webhook with list option", %{conn: conn} do
     params = %{
       "message" => %{
-        "chat" => %{"first_name" => "Ede", "id" => "66456154", "type" => "private"},
+        "chat" => %{"first_name" => "Ede", "id" => 66_456_154, "type" => "private"},
         "date" => 1_537_908_315,
         "from" => %{
           "first_name" => "Ede",
