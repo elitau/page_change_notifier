@@ -15,7 +15,7 @@ defmodule PageChangeNotifier.Extractor do
     end
 
     def prepend_ebay_domain(path) do
-      "http://www.ebay-kleinanzeigen.de#{path}"
+      "https://www.ebay-kleinanzeigen.de#{path}"
     end
   end
 

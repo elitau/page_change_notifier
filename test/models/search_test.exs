@@ -4,9 +4,9 @@ defmodule PageChangeNotifier.SearchTest do
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
 
   alias PageChangeNotifier.Search
-  @ebay_url "http://www.ebay-kleinanzeigen.de/s-50937/fahrrad/k0l18675r5"
-  @first_element "http://www.ebay-kleinanzeigen.de/s-anzeige/fahrradrahmen-pulverbeschichten-fahrrad-rahmen-pulverbeschichtung/360494180-298-20668"
-  @valid_url_schema "http://www.ebay-kleinanzeigen.de/s-anzeige"
+  @ebay_url "https://www.ebay-kleinanzeigen.de/s-50937/fahrrad/k0l18675r5"
+  @first_element "https://www.ebay-kleinanzeigen.de/s-anzeige/24-zoll-fahrrad/955764384-217-981"
+  @valid_url_schema "https://www.ebay-kleinanzeigen.de/s-anzeige"
 
   setup_all do
     ExVCR.Config.cassette_library_dir("test/fixtures/vcr_cassettes")

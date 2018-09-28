@@ -5,12 +5,12 @@ defmodule PageChangeNotifier.NotifierJobTest do
 
   alias PageChangeNotifier.NotifierJob
   @ebay_url "http://www.ebay-kleinanzeigen.de/s-50937/fahrrad/k0l18675r5"
-  @existing_result_url "http://www.ebay-kleinanzeigen.de/s-anzeige/lauflernrad/393002485-217-981"
+  @existing_result_url "https://www.ebay-kleinanzeigen.de/s-anzeige/lauflernrad/393002485-217-981"
   @kalaydo_url "http://www.kalaydo.de/kleinanzeigen/2/3/k/fahrrad/?LOCATION=250667010&DISTANCE=100"
   @first_kalaydo_element "http://www.kalaydo.de/kleinanzeigen/mountainbike/kinderfahrrad-mtb-26-zoll-zuendapp/a/83037515/"
   @search_agent %PageChangeNotifier.SearchAgent{url: @ebay_url, user_id: 23}
   @kalaydo_search_agent %PageChangeNotifier.SearchAgent{url: @kalaydo_url, user_id: 23}
-  @new_result_url "http://www.ebay-kleinanzeigen.de/s-anzeige/silbernes-mountainbike/393097973-217-20670"
+  @new_result_url "https://www.ebay-kleinanzeigen.de/s-anzeige/silbernes-mountainbike/393097973-217-20670"
   @existing_result %PageChangeNotifier.Result{
     url: @existing_result_url,
     title: "Fahrradrahmen pulverbeschichten Fahrrad Rahmen Pulverbeschichtung"
