@@ -14,6 +14,19 @@ defmodule PageChangeNotifier.Bot do
     end <> " I will post new results to this chat."
   end
 
+  def message_received(%{"text" => "/remove " <> url} = message) do
+    user = user(message)
+
+    case Repo.get_by(SearchAgent, url: url, user_id: user.id) do
+      nil ->
+        "I have no search with URL: " <> url
+
+      %SearchAgent{} = search_agent ->
+        Repo.delete(search_agent)
+        "Search for " <> url <> " was removed."
+    end <> " Send me /list to see all searches"
+  end
+
   def message_received(%{"text" => "/list"} = message) do
     Repo.all(Ecto.assoc(user(message), :search_agents))
     |> Enum.map(&("* " <> &1.url))

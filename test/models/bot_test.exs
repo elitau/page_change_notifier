@@ -18,7 +18,7 @@ defmodule PageChangeNotifier.BotTest do
     assert @message |> Map.delete("text") |> Bot.message_received()
   end
 
-  describe "receives a url" do
+  describe "adds a url" do
     test "with immoscrout host" do
       assert "Search for " <> @immoscout_url <> " added." <> _info =
                Bot.message_received(@message)
@@ -30,17 +30,31 @@ defmodule PageChangeNotifier.BotTest do
     end
   end
 
+  describe "removed a url" do
+    test "if it can be found" do
+      fake_search_agent("some_url")
+
+      assert @message |> change_text("/remove some_url") |> Bot.message_received() =~
+               "was removed"
+
+      refute PageChangeNotifier.Repo.get_by(SearchAgent, url: "some_url")
+    end
+
+    test "if there is no search agent with the url" do
+      fake_search_agent("some_url")
+
+      assert @message |> change_text("/remove other_url") |> Bot.message_received() =~
+               "no search with URL: other_url"
+
+      assert PageChangeNotifier.Repo.get_by!(SearchAgent, url: "some_url")
+    end
+  end
+
   describe "list search agents" do
     test "list" do
-      user = Repo.insert!(%User{username: "bot_user", telegram_chat_id: "23"})
+      fake_search_agent("some_url", "23")
 
-      PageChangeNotifier.Repo.insert!(%SearchAgent{
-        url: "some_url",
-        user_id: user.id
-      })
-
-      assert "* " <> "some_url" =
-               @message |> Map.merge(%{"text" => "/list"}) |> Bot.message_received()
+      assert "* " <> "some_url" = @message |> change_text("/list") |> Bot.message_received()
     end
   end
 
@@ -54,5 +68,18 @@ defmodule PageChangeNotifier.BotTest do
       existing_user = Repo.insert!(%User{username: "bot_user", telegram_chat_id: "23"})
       assert existing_user == Bot.user(@message)
     end
+  end
+
+  def change_text(message, new_text) do
+    message |> Map.merge(%{"text" => new_text})
+  end
+
+  def fake_search_agent(url, telegram_chat_id \\ "23") do
+    user = Repo.insert!(%User{username: "bot_user", telegram_chat_id: telegram_chat_id})
+
+    PageChangeNotifier.Repo.insert!(%SearchAgent{
+      url: url,
+      user_id: user.id
+    })
   end
 end
