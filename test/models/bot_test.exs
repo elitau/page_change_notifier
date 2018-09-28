@@ -3,20 +3,24 @@ defmodule PageChangeNotifier.BotTest do
   alias PageChangeNotifier.{Bot, User, SearchAgent}
 
   @immoscout_url "https://www.immobilienscout24.de/Suche/S-T/Wohnung-Miete/Nordrhein-Westfalen/Koeln/Ehrenfeld/-/-/EURO--500,00"
-  @message %{"chat" => %{"id" => "23"}, "text" => "/add " <> @immoscout_url}
+  @message %{"chat" => %{"id" => 23}, "text" => "/add " <> @immoscout_url}
 
   test "Unknown message" do
-    assert @message |> Map.merge(%{"text" => "hi"}) |> Bot.message_received() =~ ~s{Hi! I can}
+    assert @message |> change_text("hi") |> Bot.message_received() =~ ~s{Hi! I can}
   end
 
-  test "help command" do
-    assert @message |> Map.merge(%{"text" => "/help"}) |> Bot.message_received() =~
-             ~s{following commands}
+  test "/help command" do
+    assert @message |> change_text("/help") |> Bot.message_received() =~ ~s{following commands}
   end
 
-  test "chat_id command" do
-    assert @message |> Map.merge(%{"text" => "/chat_id"}) |> Bot.message_received() =~
+  test "/chat_id command" do
+    assert @message |> change_text("/chat_id") |> Bot.message_received() =~
              ~s{Your chat id is "23"}
+  end
+
+  test "/username command" do
+    assert @message |> change_text("/username") |> Bot.message_received() =~
+             ~s{Your username is "bot-user23"}
   end
 
   test "message without text does not break a thing" do

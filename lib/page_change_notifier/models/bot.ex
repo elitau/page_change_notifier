@@ -59,7 +59,7 @@ defmodule PageChangeNotifier.Bot do
   end
 
   def message_received(%{"text" => "/chat_id", "chat" => %{"id" => chat_id}}) do
-    ~s{Your chat id is "#{chat_id}"}
+    ~s{Your chat id is "#{chat_id |> to_string}"}
   end
 
   def message_received(%{"text" => "/username", "chat" => %{"id" => chat_id}}) do
@@ -93,6 +93,6 @@ defmodule PageChangeNotifier.Bot do
   end
 
   def bot_username(chat_id) do
-    "bot-user" <> chat_id
+    "bot-user" <> to_string(chat_id)
   end
 end
