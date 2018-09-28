@@ -4,6 +4,7 @@ defmodule PageChangeNotifier.EbayKleinanzeigenExtractorTest do
   @url "https://www.ebay-kleinanzeigen.de/s-50937/fahrrad/k0l18675r5"
 
   import PageChangeNotifier.Extractor.EbayKleinanzeigen
+  import PageChangeNotifier.Webpage
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
 
   setup_all do
@@ -16,33 +17,17 @@ defmodule PageChangeNotifier.EbayKleinanzeigenExtractorTest do
 
   test "extract url" do
     use_cassette "ebay_fahrrad" do
-      @url
-      |> PageChangeNotifier.Webpage.get_body()
-      |> extract_results()
-      |> Enum.map(fn result ->
-        assert result.url =~ ~r/ebay\-kleinanzeigen/
-      end)
+      assert results() |> Enum.all?(&(&1.url =~ ~r/ebay/))
     end
   end
 
   test "finds all entries" do
     use_cassette "ebay_fahrrad" do
-      count =
-        @url
-        |> PageChangeNotifier.Webpage.get_body()
-        |> extract_results()
-        |> length
-
-      assert count == 25
+      assert 25 == results() |> length
     end
   end
 
-  def fixture_html(name) do
-    path = Path.join(File.cwd!(), "test/fixtures/for_extractors/#{name}.html")
-
-    case File.read(path) do
-      {:ok, body} -> body
-      {:error, reason} -> {:error, reason}
-    end
+  def results do
+    @url |> get_body() |> extract_results()
   end
 end
