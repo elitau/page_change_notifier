@@ -6,7 +6,12 @@ defmodule PageChangeNotifierWeb.SessionController do
   plug(:scrub_params, "user" when action in [:create])
   plug(PageChangeNotifierWeb.Plug.Authenticate when action in [:delete])
 
-  def new(conn, _params) do
+  def new(conn, %{"username" => username}) do
+    conn = assign(conn, :current_user, %User{id: 0})
+    render(conn, changeset: User.changeset(%User{username: username}))
+  end
+
+  def new(conn, params) do
     conn = assign(conn, :current_user, %User{id: 0})
     render(conn, changeset: User.changeset(%User{}))
   end
