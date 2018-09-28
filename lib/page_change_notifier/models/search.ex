@@ -3,7 +3,11 @@ defmodule PageChangeNotifier.Search do
     []
   end
 
-  def run(page_url) do
+  def run(%PageChangeNotifier.SearchAgent{url: url}) do
+    run(url)
+  end
+
+  def run(page_url) when is_binary(page_url) do
     case extractor_for(page_url) do
       {:no_extractor_defined, _page_url} ->
         []

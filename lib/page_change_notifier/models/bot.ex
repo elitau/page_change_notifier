@@ -1,12 +1,13 @@
 defmodule PageChangeNotifier.Bot do
   alias PageChangeNotifier.{User, Repo, SearchAgent}
+  import User
 
   def message_received(%{"text" => "/add " <> url} = message) do
     user = user(message)
 
     case Repo.get_by(SearchAgent, url: url, user_id: user.id) do
       nil ->
-        Repo.insert!(%SearchAgent{url: url, user_id: user.id})
+        user |> add_search(url)
         "Search for " <> url <> " added."
 
       %SearchAgent{} ->

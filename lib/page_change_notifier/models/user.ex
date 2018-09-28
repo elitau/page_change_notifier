@@ -1,7 +1,7 @@
 defmodule PageChangeNotifier.User do
   use Ecto.Schema
   import Ecto.Changeset
-  alias PageChangeNotifier.User
+  alias PageChangeNotifier.{User, Search}
 
   schema "users" do
     field(:username, :string)
@@ -26,5 +26,15 @@ defmodule PageChangeNotifier.User do
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
     |> unique_constraint(:username)
+  end
+
+  def add_search(%PageChangeNotifier.User{} = user, url) do
+    %PageChangeNotifier.SearchAgent{url: url, user_id: user.id}
+    |> PageChangeNotifier.Repo.insert!()
+    |> run_in_background()
+  end
+
+  def run_in_background(search) do
+    Task.start(fn -> Search.run(search) end)
   end
 end
