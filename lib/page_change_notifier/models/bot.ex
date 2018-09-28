@@ -55,6 +55,10 @@ defmodule PageChangeNotifier.Bot do
     """
   end
 
+  def message_received(%{"text" => "/chat_id", "chat" => %{"id" => chat_id}}) do
+    ~s{Your chat id is "#{chat_id}"}
+  end
+
   def message_received(_message) do
     """
     Hi! I can search for things and notify you.

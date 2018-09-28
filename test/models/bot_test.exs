@@ -14,6 +14,11 @@ defmodule PageChangeNotifier.BotTest do
              ~s{following commands}
   end
 
+  test "chat_id command" do
+    assert @message |> Map.merge(%{"text" => "/chat_id"}) |> Bot.message_received() =~
+             ~s{Your chat id is "23"}
+  end
+
   test "message without text does not break a thing" do
     assert @message |> Map.delete("text") |> Bot.message_received()
   end
