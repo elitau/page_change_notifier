@@ -42,6 +42,8 @@ defmodule PageChangeNotifier.Bot do
     /add URL    => Adds a new search (Sites I can search: immobilienscout24.de, ebay-kleinanzeigen.de)
     /remove URL => Remove a search (not implemented yet)
     /list       => List all active searches
+    /chat_id    => The ID of this chat.
+    /username   => Your username. Can be used to login at https://search.ede.li/
     /help       => This help message
     /addhelp    => Explanation on how to add a search
     """
@@ -58,6 +60,10 @@ defmodule PageChangeNotifier.Bot do
 
   def message_received(%{"text" => "/chat_id", "chat" => %{"id" => chat_id}}) do
     ~s{Your chat id is "#{chat_id}"}
+  end
+
+  def message_received(%{"text" => "/username", "chat" => %{"id" => chat_id}}) do
+    ~s{Your username is "#{chat_id |> bot_username()}"}
   end
 
   def message_received(_message) do
@@ -87,6 +93,6 @@ defmodule PageChangeNotifier.Bot do
   end
 
   def bot_username(chat_id) do
-    "bot_user_" <> chat_id
+    "bot-user" <> chat_id
   end
 end

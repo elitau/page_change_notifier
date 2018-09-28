@@ -65,7 +65,7 @@ defmodule PageChangeNotifier.BotTest do
 
   describe "user management" do
     test "creates bot user for unknown chat id" do
-      assert %PageChangeNotifier.User{telegram_chat_id: "23", username: "bot_user_23"} =
+      assert %PageChangeNotifier.User{telegram_chat_id: "23", username: "bot-user23"} =
                Bot.user(@message)
     end
 
