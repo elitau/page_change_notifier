@@ -11,7 +11,7 @@ defmodule PageChangeNotifierWeb.SessionController do
     render(conn, changeset: User.changeset(%User{username: username}))
   end
 
-  def new(conn, params) do
+  def new(conn, _params) do
     conn = assign(conn, :current_user, %User{id: 0})
     render(conn, changeset: User.changeset(%User{}))
   end

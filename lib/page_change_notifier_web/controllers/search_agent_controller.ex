@@ -1,7 +1,7 @@
 defmodule PageChangeNotifierWeb.SearchAgentController do
   use PageChangeNotifierWeb, :controller
 
-  alias PageChangeNotifier.{SearchAgent, Result}
+  alias PageChangeNotifier.{SearchAgent, Result, User}
   alias PageChangeNotifier.Repo
   import Ecto.Query, only: [from: 2]
 
@@ -29,7 +29,9 @@ defmodule PageChangeNotifierWeb.SearchAgentController do
     changeset = SearchAgent.changeset(%SearchAgent{}, params)
 
     case Repo.insert(changeset) do
-      {:ok, _search_agent} ->
+      {:ok, search_agent} ->
+        search_agent |> User.run_in_background()
+
         conn
         |> put_flash(:info, "Search agent created successfully.")
         |> redirect(to: search_agent_path(conn, :index))
