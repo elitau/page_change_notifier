@@ -1,7 +1,20 @@
 defmodule PageChangeNotifier.Extractor do
+  require Logger
+
   defmodule EbayKleinanzeigen do
     def extract_results(page_html) do
-      page_html |> Floki.find("article h2 a") |> to_results
+      case page_valid?(page_html) do
+        true ->
+          page_html |> Floki.find("article h2 a") |> to_results
+
+        false ->
+          Logger.info("Page seems to be invalid: #{page_html}")
+          []
+      end
+    end
+
+    def page_valid?(page_html) do
+      page_html =~ ~r/article/
     end
 
     def to_results(html_elements) do
