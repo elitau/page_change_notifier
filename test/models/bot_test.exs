@@ -20,7 +20,7 @@ defmodule PageChangeNotifier.BotTest do
 
   test "/username command" do
     assert @message |> change_text("/username") |> Bot.message_received() =~
-             ~s{Your username is "bot-user23"}
+             ~s{username is "bot-user23"}
   end
 
   test "message without text does not break a thing" do

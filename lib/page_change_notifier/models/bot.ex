@@ -63,7 +63,11 @@ defmodule PageChangeNotifier.Bot do
   end
 
   def message_received(%{"text" => "/username", "chat" => %{"id" => chat_id}}) do
-    ~s{Your username is "#{chat_id |> bot_username()}"}
+    username = chat_id |> bot_username()
+
+    ~s{Your username is "#{username}".\nManage your account here: https://search.ede.li/login?username=#{
+      username
+    }"}
   end
 
   def message_received(_message) do
