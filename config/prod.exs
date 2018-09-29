@@ -28,7 +28,6 @@ config :logger, level: :debug
 config :page_change_notifier, PageChangeNotifier.Repo,
   adapter: Ecto.Adapters.Postgres,
   url: System.get_env("DATABASE_URL"),
-  database: "",
   pool_size: 1,
   ssl: true
 
