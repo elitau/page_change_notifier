@@ -17,7 +17,7 @@ config :page_change_notifier, PageChangeNotifierWeb.Endpoint,
   load_from_system_env: true,
   server: true,
   http: [port: {:system, "PORT"}],
-  url: [scheme: "https", host: "page-change-notifier.herokuapp.com", port: 443],
+  url: [scheme: "https", host: "page-change-notifier.gigalixirapp.com", port: 443],
   force_ssl: [rewrite_on: [:x_forwarded_proto]],
   cache_static_manifest: "priv/static/cache_manifest.json",
   secret_key_base: Map.fetch!(System.get_env(), "SECRET_KEY_BASE")
@@ -28,7 +28,9 @@ config :logger, level: :debug
 config :page_change_notifier, PageChangeNotifier.Repo,
   adapter: Ecto.Adapters.Postgres,
   url: System.get_env("DATABASE_URL"),
-  pool_size: 1
+  database: "",
+  pool_size: 1,
+  ssl: true
 
 # ## SSL Support
 #
