@@ -10,7 +10,12 @@ defmodule PageChangeNotifier.KalaydoExtractorTest do
   end
 
   test "extract elements" do
-    elements = PageChangeNotifier.Extractor.Kalaydo.to_elements(fixture_html("kalaydo"))
+    elements =
+      PageChangeNotifier.Extractor.Kalaydo.to_elements(
+        fixture_html("kalaydo")
+        |> PageChangeNotifier.Extractor.parse_html()
+      )
+
     assert {"li", _, _} = Enum.at(elements, 0)
   end
 

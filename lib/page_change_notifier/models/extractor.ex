@@ -1,11 +1,19 @@
 defmodule PageChangeNotifier.Extractor do
   require Logger
 
+  def parse_html(html) do
+    {:ok, html} = Floki.parse_document(html)
+    html
+  end
+
   defmodule EbayKleinanzeigen do
     def extract_results(page_html) do
       case page_valid?(page_html) do
         true ->
-          page_html |> Floki.find("article h2 a") |> to_results
+          page_html
+          |> PageChangeNotifier.Extractor.parse_html()
+          |> Floki.find("article h2 a")
+          |> to_results
 
         false ->
           Logger.info("Page seems to be invalid: #{page_html}")
@@ -36,7 +44,7 @@ defmodule PageChangeNotifier.Extractor do
     @element_css_path "#resultlist li"
 
     def extract_results(page_html) do
-      page_html |> to_elements |> to_results
+      page_html |> PageChangeNotifier.Extractor.parse_html() |> to_elements |> to_results
     end
 
     def to_elements(page_html) do
@@ -74,7 +82,7 @@ defmodule PageChangeNotifier.Extractor do
     @element_css_path "#resultListItems li"
 
     def extract_results(page_html) do
-      page_html |> to_elements |> to_results
+      page_html |> PageChangeNotifier.Extractor.parse_html() |> to_elements |> to_results
     end
 
     def to_elements(page_html) do
@@ -112,7 +120,7 @@ defmodule PageChangeNotifier.Extractor do
     @element_css_path ".ci-search-results>div"
 
     def extract_results(page_html) do
-      page_html |> to_elements |> to_results
+      page_html |> PageChangeNotifier.Extractor.parse_html() |> to_elements |> to_results
     end
 
     def to_elements(page_html) do

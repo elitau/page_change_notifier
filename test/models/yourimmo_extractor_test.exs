@@ -13,6 +13,7 @@ defmodule PageChangeNotifier.YourimmoExtractorTest do
     first_element =
       "yourimmo"
       |> fixture_html()
+      |> PageChangeNotifier.Extractor.parse_html()
       |> PageChangeNotifier.Extractor.Yourimmo.to_elements()
       |> Enum.at(0)
 

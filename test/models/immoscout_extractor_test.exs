@@ -13,6 +13,7 @@ defmodule PageChangeNotifier.ImmoscoutExtractorTest do
     first_element =
       "immoscout_results"
       |> fixture_html()
+      |> PageChangeNotifier.Extractor.parse_html()
       |> PageChangeNotifier.Extractor.Immoscout.to_elements()
       |> Enum.at(0)
 
