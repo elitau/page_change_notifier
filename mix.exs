@@ -40,7 +40,7 @@ defmodule PageChangeNotifier.Mixfile do
       {:phoenix_html, "~> 2.10"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
-      {:cowboy, "~> 1.0"},
+      {:plug_cowboy, "~> 1.0"},
       {:httpoison, "~> 0.13"},
       {:exvcr, "~> 0.9"},
       {:floki, "~> 0.19"},
