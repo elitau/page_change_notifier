@@ -29,11 +29,6 @@ defmodule PageChangeNotifier.NotifierJobTest do
     email: "email"
   }
 
-  setup_all do
-    ExVCR.Config.cassette_library_dir("test/fixtures/vcr_cassettes")
-    :ok
-  end
-
   test "remove existing results from current results" do
     use_cassette "ebay_fahrrad_and_yo" do
       user = Repo.insert!(@user)

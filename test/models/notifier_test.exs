@@ -3,11 +3,6 @@ defmodule PageChangeNotifier.NotifierTest do
   use ExUnit.Case
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
 
-  setup_all do
-    ExVCR.Config.cassette_library_dir("test/fixtures/vcr_cassettes")
-    :ok
-  end
-
   @user %{
     name: "name",
     yo_username: "yo_username",

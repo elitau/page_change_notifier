@@ -17,3 +17,5 @@ config :page_change_notifier, PageChangeNotifier.Repo,
   database: "page_change_notifier_test",
   hostname: System.get_env("PG_HOST") || "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
+
+config :exvcr, vcr_cassette_library_dir: "test/fixtures/vcr_cassettes"

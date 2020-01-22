@@ -4,10 +4,6 @@ defmodule PageChangeNotifier.SearchControllerTest do
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
   alias PageChangeNotifier.Repo
 
-  setup_all do
-    ExVCR.Config.cassette_library_dir("test/fixtures/vcr_cassettes")
-  end
-
   setup do
     user = Repo.insert!(%PageChangeNotifier.User{username: "luke"})
 

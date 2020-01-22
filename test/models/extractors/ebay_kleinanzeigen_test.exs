@@ -7,10 +7,6 @@ defmodule PageChangeNotifier.EbayKleinanzeigenExtractorTest do
   import PageChangeNotifier.Webpage
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
 
-  setup_all do
-    ExVCR.Config.cassette_library_dir("test/fixtures/for_extractors")
-  end
-
   test "factory" do
     assert PageChangeNotifier.Extractor.EbayKleinanzeigen = PageChangeNotifier.Extractor.for(@url)
   end

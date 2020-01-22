@@ -8,11 +8,6 @@ defmodule PageChangeNotifier.SearchTest do
   @first_element "https://www.ebay-kleinanzeigen.de/s-anzeige/24-zoll-fahrrad/955764384-217-981"
   @valid_url_schema "https://www.ebay-kleinanzeigen.de/s-anzeige"
 
-  setup_all do
-    ExVCR.Config.cassette_library_dir("test/fixtures/vcr_cassettes")
-    :ok
-  end
-
   test "fetch html" do
     use_cassette "ebay_fahrrad" do
       html = Search.get_page_html(@ebay_url)
