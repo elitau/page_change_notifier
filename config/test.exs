@@ -12,8 +12,8 @@ config :logger, level: :warn
 # Configure your database
 config :page_change_notifier, PageChangeNotifier.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
+  username: System.get_env("PG_USER") || System.get_env("USER"),
+  password: System.get_env("PG_PASSWORD") || "",
   database: "page_change_notifier_test",
-  hostname: "localhost",
+  hostname: System.get_env("PG_HOST") || "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
