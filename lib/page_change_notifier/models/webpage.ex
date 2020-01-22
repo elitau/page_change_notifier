@@ -8,7 +8,7 @@ defmodule PageChangeNotifier.Webpage do
   def get_body(page_url) do
     try do
       HTTPoison.start()
-      HTTPoison.get!(page_url).body
+      HTTPoison.get!(page_url, [], follow_redirect: true).body
     rescue
       HTTPoison.Error -> ""
     end
