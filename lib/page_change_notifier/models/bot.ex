@@ -41,7 +41,7 @@ defmodule PageChangeNotifier.Bot do
 
     Send me one of the following commands:
     /add URL    => Adds a new search (Sites I can search: immobilienscout24.de, ebay-kleinanzeigen.de)
-    /remove URL => Remove a search (not implemented yet)
+    /remove URL => Remove a search
     /list       => List all active searches
     /chat_id    => The ID of this chat.
     /username   => Your username. Can be used to login at https://search.ede.li/
