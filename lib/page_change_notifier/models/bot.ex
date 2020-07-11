@@ -1,6 +1,7 @@
 defmodule PageChangeNotifier.Bot do
   alias PageChangeNotifier.{User, Repo, SearchAgent}
   import User
+  require Logger
 
   def message_received(%{"text" => "/add " <> url} = message) do
     user = user(message)
@@ -79,6 +80,7 @@ defmodule PageChangeNotifier.Bot do
 
   def user(message) do
     chat_id = message["chat"]["id"] |> to_string()
+    Logger.info("Loading User from message: #{message |> inspect()}")
 
     case Repo.get_by(User, telegram_chat_id: chat_id) do
       nil ->
