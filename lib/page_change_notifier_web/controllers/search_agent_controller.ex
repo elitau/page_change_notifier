@@ -10,8 +10,8 @@ defmodule PageChangeNotifierWeb.SearchAgentController do
 
   def index(conn, _params) do
     search_agents =
-      if conn.assigns[:current_user].username == "zecke" do
         Repo.all(SearchAgent)
+      if conn.assigns[:current_user].username |> admin?() do
       else
         Repo.all(Ecto.assoc(conn.assigns[:current_user], :search_agents))
       end
@@ -83,4 +83,8 @@ defmodule PageChangeNotifierWeb.SearchAgentController do
     |> put_flash(:info, "Search agent deleted successfully.")
     |> redirect(to: search_agent_path(conn, :index))
   end
+
+  defp admin?("zecke"), do: true
+  defp admin?("hurx"), do: true
+  defp admin?(_), do: false
 end
