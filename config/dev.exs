@@ -57,8 +57,9 @@ config :phoenix, :stacktrace_depth, 20
 # Configure your database
 config :page_change_notifier, PageChangeNotifier.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
-  database: "page_change_notifier_dev",
-  hostname: "localhost",
-  pool_size: 10
+  username: System.get_env("PG_USER") || System.get_env()["USER"],
+  password: System.get_env("PG_PASSWORD") || "",
+  port: System.get_env("PG_PORT") || "5432",
+  hostname: System.get_env("PG_HOST") || "localhost",
+  database: System.get_env("PG_NAME") || "page_change_#{Mix.env()}",
+  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
