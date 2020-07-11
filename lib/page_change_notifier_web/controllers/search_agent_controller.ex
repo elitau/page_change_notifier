@@ -10,8 +10,8 @@ defmodule PageChangeNotifierWeb.SearchAgentController do
 
   def index(conn, _params) do
     search_agents =
-        Repo.all(SearchAgent)
       if conn.assigns[:current_user].username |> admin?() do
+        Repo.all(from(sa in SearchAgent, order_by: sa.inserted_at))
       else
         Repo.all(Ecto.assoc(conn.assigns[:current_user], :search_agents))
       end
